@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="2.5.0" type="library" method="upgrade">
+    <name>Lib fields</name>
+    <libraryname>lib_fields</libraryname>
+    <author>Cymbal</author>
+    <creationDate>2019</creationDate>
+    <authorUrl>https://delo-design.ru</authorUrl>
+    <authorEmail>cymbal@delo-design.ru</authorEmail>
+    <copyright>Copyright (C) 2019 "Delo Design". All rights reserved.</copyright>
+    <license>GPL v3</license>
+    <version>1.0</version>
+    <description>Library fields.</description>
+
+    <updateservers>
+        <server type="extension" priority="1" name="Lib fields">
+            https://hika.su/update/free/lib_fields.xml
+        </server>
+    </updateservers>
+
+    <files>
+        <folder>fields</folder>
+        <folder>helpers</folder>
+    </files>
+
+</extension>
