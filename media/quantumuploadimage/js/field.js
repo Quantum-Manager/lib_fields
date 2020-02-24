@@ -25,6 +25,10 @@ document.addEventListener('DOMContentLoaded' ,function () {
         });
 
         QuantummanagerLists[fmIndex].events.add(this, 'uploadComplete', function (fm, el) {
+            if(fm.Qantumupload.filesLists === undefined || fm.Qantumupload.filesLists.length === 0) {
+                return;
+            }
+
             let pathFile = fm.data.path + '/' + fm.Qantumupload.filesLists[0];
             console.log(pathFile);
             jQuery.get(QuantumUtils.getFullUrl("/administrator/index.php?option=com_quantummanager&task=quantumviewfiles.getParsePath&path=" + encodeURIComponent(pathFile) +
@@ -37,7 +41,6 @@ document.addEventListener('DOMContentLoaded' ,function () {
                 }
 
             });
-
 
         });
     }
