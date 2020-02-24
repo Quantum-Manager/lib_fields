@@ -6,12 +6,12 @@ use Joomla\CMS\HTML\HTMLHelper;
 defined('_JEXEC') or die;
 extract($displayData);
 
-HTMLHelper::_('stylesheet','lib_fields/fields/quantumuploadimage/field.css', [
+HTMLHelper::_('stylesheet','lib_fields/quantumuploadimage/field.css', [
 	'version' => filemtime(__FILE__),
 	'relative' => true
 ]);
 
-HTMLHelper::_('script', 'lib_fields/fields/quantumuploadimage/field.js', [
+HTMLHelper::_('script', 'lib_fields/quantumuploadimage/field.js', [
 	'version' => filemtime(__FILE__),
 	'relative' => true
 ]);
@@ -21,7 +21,7 @@ $img = !empty($displayData['value']) ? '/' . $displayData['value'] : '/images/jo
 $value = $displayData['value'];
 
 $app->getSession()->set('quantummanageraddscripts', json_encode([
-	'lib_fields/quantumuploadimage/fields/modal.js'
+	'lib_fields/quantumuploadimage/modal.js'
 ]));
 
 $quantumOptions = [

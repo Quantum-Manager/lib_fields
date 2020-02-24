@@ -18,7 +18,7 @@
     </updateservers>
 
     <media folder="media" destination="lib_fields">
-        <folder>fields</folder>
+        <folder>lib_fields</folder>
     </media>
 
     <files>
