@@ -41,7 +41,7 @@ class JFormFieldListarticles extends JFormFieldList
 	public function getInput()
 	{
 		try {
-			HTMLHelper::addIncludePath(JPATH_ROOT . '/libraries/lib_fields/helpers');
+			HTMLHelper::addIncludePath(JPATH_ROOT . '/libraries/lib_fields/fields/listarticles/helpers');
 
 			$filters['filter.q'] = $this->getAttribute('q', '');
 			$filters['filter.limit'] = $this->getAttribute('limit', '');
