@@ -30,7 +30,6 @@ document.addEventListener('DOMContentLoaded' ,function () {
             }
 
             let pathFile = fm.data.path + '/' + fm.Qantumupload.filesLists[0];
-            console.log(pathFile);
             jQuery.get(QuantumUtils.getFullUrl("/administrator/index.php?option=com_quantummanager&task=quantumviewfiles.getParsePath&path=" + encodeURIComponent(pathFile) +
                 '&scope=' + fm.data.scope +
                 '&v=' + QuantumUtils.randomInteger(111111, 999999))).done(function (response) {
