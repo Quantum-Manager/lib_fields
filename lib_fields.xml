@@ -6,9 +6,9 @@
     <creationDate>2019</creationDate>
     <authorUrl>https://delo-design.ru</authorUrl>
     <authorEmail>cymbal@delo-design.ru</authorEmail>
-    <copyright>Copyright (C) 2019 "Delo Design". All rights reserved.</copyright>
+    <copyright>Copyright (C) 2020 "Delo Design". All rights reserved.</copyright>
     <license>GPL v3</license>
-    <version>1.0</version>
+    <version>1.1</version>
     <description>Library fields.</description>
 
     <updateservers>
@@ -16,6 +16,10 @@
             https://hika.su/update/free/lib_fields.xml
         </server>
     </updateservers>
+
+    <media folder="media" destination="lib_fields">
+        <folder>fields</folder>
+    </media>
 
     <files>
         <folder>fields</folder>
