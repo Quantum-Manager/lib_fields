@@ -42,9 +42,4 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 		);
 	}
 
-	public function getInput()
-	{
-		echo parent::getInput();
-	}
-
 }
