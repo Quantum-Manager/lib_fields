@@ -1,6 +1,7 @@
 .quantumuploadimage-field {
     max-width: 500px;
     height: 350px;
+    overflow: visible;
 }
 
 .quantumuploadimage-field.quantumuploadimage-field-preview-hidden {
