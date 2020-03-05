@@ -67,10 +67,18 @@ class JFormFieldListComponents extends JFormFieldList
 				->where('e.enabled = 1');
 			$elements = $db->setQuery($query)->loadColumn();
 
+			$rootComponents = JPATH_ROOT;
+			$client = $this->getAttribute('client', 'site');
+
+			if($client === 'administrator')
+			{
+				$rootComponents = JPATH_ADMINISTRATOR;
+			}
+
 			$components = array();
 			foreach ($elements as $component)
 			{
-				$folder = Path::clean(JPATH_ROOT . '/components/' . $component . '/views');
+				$folder = Path::clean($rootComponents . '/components/' . $component . '/views');
 				if (Folder::exists($folder))
 				{
 					foreach (Folder::folders($folder) as $view)
@@ -83,7 +91,6 @@ class JFormFieldListComponents extends JFormFieldList
 					}
 				}
 			}
-
 
 
 			// Convert options
