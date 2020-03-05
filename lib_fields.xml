@@ -18,12 +18,12 @@
     </updateservers>
 
     <media folder="media" destination="lib_fields">
-        <folder>lib_fields</folder>
+        <folder>fields</folder>
     </media>
 
     <files>
         <folder>fields</folder>
-        <folder>helpers</folder>
+        <folder>language</folder>
     </files>
 
     <languages folder="language">
