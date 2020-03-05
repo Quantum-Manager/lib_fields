@@ -30,9 +30,10 @@ $quantumOptions = [
 	'layout' => 'modal',
 	'fieldid' => $displayData['id'],
 ];
+
 ?>
 
-<div class="quantumuploadimage-wrap">
+<div class="quantumuploadimage-wrap <?php if(isset($displayData['uploadAreaHidden']) && !(int)$displayData['uploadAreaHidden']) : ?>quantumuploadimage-preview-hidden<?php endif; ?>">
     <div class="quantumuploadimage-preview">
         <?php if(empty($img)) : ?>
             <div class="drag-drop">
@@ -42,7 +43,7 @@ $quantumOptions = [
                 </div>
             </div>
 		<?php else: ?>
-            <img src="<?php echo $img ?>">
+            <img src="<?php echo $img ?>" />
 		<?php endif; ?>
     </div>
     <div class="quantumuploadimage-actions">

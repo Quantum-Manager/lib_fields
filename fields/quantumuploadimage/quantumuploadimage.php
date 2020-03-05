@@ -33,13 +33,29 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 	protected function getLayoutData()
 	{
 		$layout = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
-		$other = $layout->render(parent::getLayoutData());
+		$other = $layout->render(array_merge(parent::getLayoutData(),
+			[
+				'uploadAreaHidden' => $this->uploadAreaHidden
+			]));
 
 		return array_merge(parent::getLayoutData(),
 			[
 				'other' => $other,
 			]
 		);
+	}
+
+	public function getInput()
+	{
+		try
+		{
+			$this->__set('uploadAreaHidden', $this->getAttribute('uploadAreaHidden', true));
+			return parent::getInput();
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
 	}
 
 }
