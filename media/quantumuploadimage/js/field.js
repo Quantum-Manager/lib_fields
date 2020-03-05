@@ -18,14 +18,26 @@ function updateImage(wrap, image) {
 document.addEventListener('DOMContentLoaded' ,function () {
     let quantumuploadimageAll = document.querySelectorAll('.quantumuploadimage-field');
     for(let i=0;i<quantumuploadimageAll.length;i++) {
-        let buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
+        let buttonUpload = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
+        buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
         buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
         input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input'),
         quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
         fmIndex = parseInt(quantummanager.getAttribute('data-index'));
 
-        buttonChange.addEventListener('click', function (ev) {
+        buttonUpload.addEventListener('click', function (ev) {
             QuantummanagerLists[fmIndex].Qantumupload.selectFiles();
+            ev.preventDefault();
+        });
+
+        buttonChange.addEventListener('click', function (ev) {
+            let url = this.getAttribute('data-source-href');
+            if(input.value !== '') {
+                let paths = input.value.split('/');
+                paths.pop();
+                url += '&folder=' + paths.join('/').replace('images/', '');
+            }
+            SqueezeBox.open(url, {handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'});
             ev.preventDefault();
         });
 

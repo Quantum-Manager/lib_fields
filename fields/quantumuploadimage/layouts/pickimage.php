@@ -54,11 +54,10 @@ $quantumOptions = [
         <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>" class="quantumuploadimage-input">
         <div class="quantumuploadimage-group-buttons">
             <button class="btn quantumuploadimage-upload-start">Загрузить</button>
-            <a class="btn modal"
+            <button class="btn quantumuploadimage-change"
                aria-hidden="true"
-               href="index.php?<?php echo http_build_query($quantumOptions) ?>"
                data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
-               rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}">Выбрать</a>
+               rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}">Выбрать</button>
             <button class="btn quantumuploadimage-delete" aria-hidden="true"><span class="icon-remove"></span></button>
         </div>
     </div>
