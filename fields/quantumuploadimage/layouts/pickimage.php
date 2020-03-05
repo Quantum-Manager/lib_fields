@@ -6,16 +6,7 @@ use Joomla\CMS\HTML\HTMLHelper;
 defined('_JEXEC') or die;
 extract($displayData);
 
-HTMLHelper::_('script', 'system/modal.js', [
-    'framework' => true,
-    'version' => 'auto',
-    'relative' => true
-]);
-
-HTMLHelper::_('stylesheet', 'system/modal.css', [
-    'version' => 'auto',
-    'relative' => true
-]);
+HTMLHelper::_('behavior.modal');
 
 HTMLHelper::_('stylesheet','lib_fields/quantumuploadimage/field.css', [
 	'version' => filemtime(__FILE__),
@@ -63,7 +54,7 @@ $quantumOptions = [
         <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>" class="quantumuploadimage-input">
         <div class="quantumuploadimage-group-buttons">
             <button class="btn quantumuploadimage-upload-start">Загрузить</button>
-            <a class="btn modal-button"
+            <a class="btn modal"
                aria-hidden="true"
                href="index.php?<?php echo http_build_query($quantumOptions) ?>"
                data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
