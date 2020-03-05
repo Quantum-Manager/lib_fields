@@ -26,4 +26,9 @@
         <folder>helpers</folder>
     </files>
 
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.lib_fields.ini</language>
+        <language tag="ru-RU">ru-RU/ru-RU.lib_fields.ini</language>
+    </languages>
+
 </extension>
