@@ -6,6 +6,17 @@ use Joomla\CMS\HTML\HTMLHelper;
 defined('_JEXEC') or die;
 extract($displayData);
 
+HTMLHelper::_('script', 'system/modal.js', [
+    'framework' => true,
+    'version' => 'auto',
+    'relative' => true
+]);
+
+HTMLHelper::_('stylesheet', 'system/modal.css', [
+    'version' => 'auto',
+    'relative' => true
+]);
+
 HTMLHelper::_('stylesheet','lib_fields/quantumuploadimage/field.css', [
 	'version' => filemtime(__FILE__),
 	'relative' => true
@@ -15,6 +26,8 @@ HTMLHelper::_('script', 'lib_fields/quantumuploadimage/field.js', [
 	'version' => filemtime(__FILE__),
 	'relative' => true
 ]);
+
+
 
 $app = Factory::getApplication();
 $img = !empty($displayData['value']) ? '/' . $displayData['value'] : '';
