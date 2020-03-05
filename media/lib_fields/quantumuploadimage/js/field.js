@@ -7,14 +7,19 @@ window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
 
 
 function updateImage(wrap, image) {
-    let img = wrap.querySelector('img');
-    img.setAttribute('src', '/' + image);
+    let preview = wrap.querySelector('.quantumuploadimage-preview');
+    if(image !== '') {
+        preview.innerHTML = '<img src="/' + image + '" />';
+    } else {
+        preview.innerHTML = "<div class=\"drag-drop\"><div><div class=\"quantummanager-icon quantummanager-icon-upload\"></div><div>Вы можете бросить файлы для загрузки.</div></div></div>";
+    }
 }
 
 document.addEventListener('DOMContentLoaded' ,function () {
     let quantumuploadimageAll = document.querySelectorAll('.quantumuploadimage-wrap');
     for(let i=0;i<quantumuploadimageAll.length;i++) {
         let buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
+        buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
         input = quantumuploadimageAll[i].querySelector('input'),
         quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
         fmIndex = parseInt(quantummanager.getAttribute('data-index'));
@@ -22,6 +27,16 @@ document.addEventListener('DOMContentLoaded' ,function () {
         buttonChange.addEventListener('click', function (ev) {
             QuantummanagerLists[fmIndex].Qantumupload.selectFiles();
             ev.preventDefault();
+        });
+
+        buttonDelete.addEventListener('click', function (ev) {
+            QuantumuploadimageInsertFieldValue('', input.getAttribute('id'));
+            ev.preventDefault();
+        });
+
+        input.addEventListener('change', function () {
+            this.value = this.value.replace(QuantumSettings.urlFull, '');
+            QuantumuploadimageInsertFieldValue(this.value, input.getAttribute('id'));
         });
 
         QuantummanagerLists[fmIndex].events.add(this, 'uploadComplete', function (fm, el) {

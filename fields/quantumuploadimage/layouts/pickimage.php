@@ -17,7 +17,7 @@ HTMLHelper::_('script', 'lib_fields/quantumuploadimage/field.js', [
 ]);
 
 $app = Factory::getApplication();
-$img = !empty($displayData['value']) ? '/' . $displayData['value'] : '/images/joomla_black.png';
+$img = !empty($displayData['value']) ? '/' . $displayData['value'] : '';
 $value = $displayData['value'];
 
 $app->getSession()->set('quantummanageraddscripts', json_encode([
@@ -33,13 +33,28 @@ $quantumOptions = [
 ?>
 
 <div class="quantumuploadimage-wrap">
-	<input type="hidden" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>">
-	<img src="<?php echo $img ?>">
-	<div class="group-buttons">
-		<a
-			class="btn modal-button"
-			href="index.php?<?php echo http_build_query($quantumOptions) ?>"
-		   rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}">Выбрать</a>
-		<button class="btn quantumuploadimage-upload-start">Загрузить</button>
-	</div>
+    <div class="quantumuploadimage-preview">
+        <?php if(empty($img)) : ?>
+            <div class="drag-drop">
+                <div>
+                    <div class="quantummanager-icon quantummanager-icon-upload"></div>
+                    <div>Вы можете бросить файлы для загрузки.</div>
+                </div>
+            </div>
+		<?php else: ?>
+            <img src="<?php echo $img ?>">
+		<?php endif; ?>
+    </div>
+    <div class="quantumuploadimage-actions">
+        <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>">
+        <div class="quantumuploadimage-group-buttons">
+            <button class="btn quantumuploadimage-upload-start">Загрузить</button>
+            <a class="btn modal-button"
+               aria-hidden="true"
+               href="index.php?<?php echo http_build_query($quantumOptions) ?>"
+               data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
+               rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}">Выбрать</a>
+            <button class="btn quantumuploadimage-delete" aria-hidden="true"><span class="icon-remove"></span></button>
+        </div>
+    </div>
 </div>
