@@ -11,7 +11,7 @@ function updateImage(wrap, image) {
     if(image !== '') {
         preview.innerHTML = '<img src="/' + image + '" />';
     } else {
-        preview.innerHTML = "<div class=\"drag-drop\"><div><div class=\"quantummanager-icon quantummanager-icon-upload\"></div><div>Вы можете бросить файлы для загрузки.</div></div></div>";
+        preview.innerHTML = "<div class=\"drag-drop\"><div><div class=\"quantummanager-icon quantummanager-icon-upload\"></div><div>" + QuantumuploadimageLang.dragdrop + "</div></div></div>";
     }
 }
 

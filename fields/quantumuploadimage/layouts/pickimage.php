@@ -2,6 +2,7 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die;
 extract($displayData);
@@ -43,7 +44,7 @@ $quantumOptions = [
             <div class="drag-drop">
                 <div>
                     <div class="quantummanager-icon quantummanager-icon-upload"></div>
-                    <div>Вы можете бросить файлы для загрузки.</div>
+                    <div><?php echo Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_DROP') . ' ' . Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_SELECT') ?></div>
                 </div>
             </div>
 		<?php else: ?>
@@ -53,12 +54,18 @@ $quantumOptions = [
     <div class="quantumuploadimage-actions">
         <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>" class="quantumuploadimage-input">
         <div class="quantumuploadimage-group-buttons">
-            <button class="btn quantumuploadimage-upload-start">Загрузить</button>
+            <button class="btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button>
             <button class="btn quantumuploadimage-change"
                aria-hidden="true"
                data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
-               rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}">Выбрать</button>
+               rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_SELECT') ?></button>
             <button class="btn quantumuploadimage-delete" aria-hidden="true"><span class="icon-remove"></span></button>
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    window.QuantumuploadimageLang = {
+        'dragdrop': '<?php echo Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_DROP') . ' ' . Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_SELECT') ?>'
+    };
+</script>
