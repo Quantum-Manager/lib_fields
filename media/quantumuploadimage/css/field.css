@@ -9,11 +9,15 @@
 
 .quantumuploadimage-field .quantumuploadimage-preview {
     position: relative;
+    width: calc(100% - 4px);
+    height: 250px;
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: center;
     background: #fbfbfb;
     border: 2px dashed #ddd;
     text-align: center;
-    width: calc(100% - 4px);
-    height: 250px;
 }
 
 .quantumuploadimage-field.quantumuploadimage-field-preview-hidden .quantumuploadimage-preview{
