@@ -1,6 +1,9 @@
 window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
     let input = document.querySelector('#' + fieldid),
     wrap = input.closest('.quantumuploadimage-field');
+    if(value.slice(0, 1) === '/') {
+        value = value.slice(1);
+    }
     input.value = value;
     updateImage(wrap, value);
 };
