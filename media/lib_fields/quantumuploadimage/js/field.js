@@ -1,6 +1,6 @@
 window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
     let input = document.querySelector('#' + fieldid),
-    wrap = input.closest('.quantumuploadimage-wrap');
+    wrap = input.closest('.quantumuploadimage-field');
     input.value = value;
     updateImage(wrap, value);
 };
@@ -16,11 +16,11 @@ function updateImage(wrap, image) {
 }
 
 document.addEventListener('DOMContentLoaded' ,function () {
-    let quantumuploadimageAll = document.querySelectorAll('.quantumuploadimage-wrap');
+    let quantumuploadimageAll = document.querySelectorAll('.quantumuploadimage-field');
     for(let i=0;i<quantumuploadimageAll.length;i++) {
         let buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
         buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
-        input = quantumuploadimageAll[i].querySelector('input'),
+        input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input'),
         quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
         fmIndex = parseInt(quantummanager.getAttribute('data-index'));
 

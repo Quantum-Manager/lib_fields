@@ -1,32 +1,32 @@
-.quantumuploadimage-wrap {
+.quantumuploadimage-field {
     max-width: 500px;
     height: 350px;
 }
 
-.quantumuploadimage-wrap.quantumuploadimage-preview-hidden {
+.quantumuploadimage-field.quantumuploadimage-field-preview-hidden {
     height: auto;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-preview {
+.quantumuploadimage-field .quantumuploadimage-preview {
     position: relative;
     background: #fbfbfb;
     border: 2px dashed #ddd;
     text-align: center;
-    width: 100%;
+    width: calc(100% - 4px);
     height: 250px;
 }
 
-.quantumuploadimage-wrap.quantumuploadimage-preview-hidden .quantumuploadimage-preview{
+.quantumuploadimage-field.quantumuploadimage-field-preview-hidden .quantumuploadimage-preview{
     display: none;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-preview img {
+.quantumuploadimage-field .quantumuploadimage-preview img {
     object-position: center;
     object-fit: contain;
     max-height: 250px;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-preview .drag-drop {
+.quantumuploadimage-field .quantumuploadimage-preview .drag-drop {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -35,14 +35,14 @@
     height: 100%;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-preview .drag-drop .quantummanager-icon {
+.quantumuploadimage-field .quantumuploadimage-preview .drag-drop .quantummanager-icon {
     width: 50px;
     height: 50px;
 }
 
 .quantumuploadimage-actions {
     display: flex;
-    width: calc(100% + 4px);
+    width: 100%;
     margin-top: 4px;
 }
 
@@ -51,20 +51,20 @@
     border-radius: 3px 0 0 3px;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-group-buttons {
+.quantumuploadimage-field .quantumuploadimage-group-buttons {
     width: 50%;
     display: flex;
     flex-wrap: nowrap;
     justify-content: stretch;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-group-buttons > * {
+.quantumuploadimage-field .quantumuploadimage-group-buttons > * {
     display: inline-block;
     border-radius: 0;
     flex: 2;
 }
 
-.quantumuploadimage-wrap .quantumuploadimage-group-buttons > *:last-child {
+.quantumuploadimage-field .quantumuploadimage-group-buttons > *:last-child {
     border-radius: 0 3px 3px 0;
     flex: 1;
 }

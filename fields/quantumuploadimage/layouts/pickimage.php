@@ -33,7 +33,7 @@ $quantumOptions = [
 
 ?>
 
-<div class="quantumuploadimage-wrap <?php if(isset($displayData['uploadAreaHidden']) && !(int)$displayData['uploadAreaHidden']) : ?>quantumuploadimage-preview-hidden<?php endif; ?>">
+<div class="<?php if(isset($displayData['uploadAreaHidden']) && !(int)$displayData['uploadAreaHidden']) : ?>quantumuploadimage-preview-hidden<?php endif; ?>">
     <div class="quantumuploadimage-preview">
         <?php if(empty($img)) : ?>
             <div class="drag-drop">
@@ -47,7 +47,7 @@ $quantumOptions = [
 		<?php endif; ?>
     </div>
     <div class="quantumuploadimage-actions">
-        <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>">
+        <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>" class="quantumuploadimage-input">
         <div class="quantumuploadimage-group-buttons">
             <button class="btn quantumuploadimage-upload-start">Загрузить</button>
             <a class="btn modal-button"
