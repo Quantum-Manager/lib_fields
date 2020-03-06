@@ -1,6 +1,6 @@
 window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
     let input = document.querySelector('#' + fieldid),
-    wrap = input.closest('.quantumuploadimage-field');
+        wrap = input.closest('.quantumuploadimage-field');
     if(value.slice(0, 1) === '/') {
         value = value.slice(1);
     }
@@ -12,9 +12,10 @@ window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
 function updateImage(wrap, image) {
     let preview = wrap.querySelector('.quantumuploadimage-preview');
     if(image !== '') {
+        preview.classList.add('quantumuploadimage-preview-active');
         preview.innerHTML = '<img src="/' + image + '" />';
     } else {
-        preview.innerHTML = "<div class=\"drag-drop\"><div><div class=\"quantummanager-icon quantummanager-icon-upload\"></div><div>" + QuantumuploadimageLang.dragdrop + "</div></div></div>";
+        preview.classList.remove('quantumuploadimage-preview-active');
     }
 }
 
@@ -22,16 +23,22 @@ document.addEventListener('DOMContentLoaded' ,function () {
     let quantumuploadimageAll = document.querySelectorAll('.quantumuploadimage-field');
     for(let i=0;i<quantumuploadimageAll.length;i++) {
         let buttonUpload = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
-        buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
-        buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
-        input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input'),
-        quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
-        fmIndex = parseInt(quantummanager.getAttribute('data-index'));
+            buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
+            buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
+            input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input'),
+            quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
+            fmIndex = parseInt(quantummanager.getAttribute('data-index'));
 
-        buttonUpload.addEventListener('click', function (ev) {
-            QuantummanagerLists[fmIndex].Qantumupload.selectFiles();
-            ev.preventDefault();
-        });
+        if(input.value !== '') {
+            QuantumuploadimageInsertFieldValue(input.value, input.getAttribute('id'));
+        }
+
+        if(buttonUpload !== null) {
+            buttonUpload.addEventListener('click', function (ev) {
+                QuantummanagerLists[fmIndex].Qantumupload.selectFiles();
+                ev.preventDefault();
+            });
+        }
 
         buttonChange.addEventListener('click', function (ev) {
             let url = this.getAttribute('data-source-href');

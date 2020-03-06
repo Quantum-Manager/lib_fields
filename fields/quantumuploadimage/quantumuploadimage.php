@@ -36,7 +36,7 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 		$parentData = parent::getLayoutData();
 
 		$parentData['cssClass'] .= ' quantumuploadimage-field';
-		if(isset($this->uploadAreaHidden) && !(int)$this->uploadAreaHidden)
+		if(isset($this->dropAreaHidden) && (int)$this->dropAreaHidden)
 		{
 			$parentData['cssClass'] .= ' quantumuploadimage-field-preview-hidden';
 		}
@@ -57,7 +57,7 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 	{
 		try
 		{
-			$this->__set('uploadAreaHidden', $this->getAttribute('uploadAreaHidden', true));
+			$this->__set('dropAreaHidden', $this->getAttribute('dropAreaHidden', true));
 			return parent::getInput();
 		}
 		catch (Exception $e)

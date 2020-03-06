@@ -38,23 +38,16 @@ $quantumOptions = [
 
 ?>
 
-<div class="<?php if(isset($displayData['uploadAreaHidden']) && !(int)$displayData['uploadAreaHidden']) : ?>quantumuploadimage-preview-hidden<?php endif; ?>">
-    <div class="quantumuploadimage-preview">
-        <?php if(empty($img)) : ?>
-            <div class="drag-drop">
-                <div>
-                    <div class="quantummanager-icon quantummanager-icon-upload"></div>
-                    <div><?php echo Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_DROP') . ' ' . Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_SELECT') ?></div>
-                </div>
-            </div>
-		<?php else: ?>
+<div class="<?php if(isset($displayData['dropAreaHidden']) && (int)$displayData['dropAreaHidden']) : ?>quantumuploadimage-preview-hidden<?php endif; ?>">
+    <div class="quantumuploadimage-preview <?php if(!empty($img)) : ?>quantumuploadimage-preview-active<?php endif; ?>">
+        <?php if(!empty($img)) : ?>
             <img src="<?php echo $img ?>" />
 		<?php endif; ?>
     </div>
     <div class="quantumuploadimage-actions">
         <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>" value="<?php echo $value ?>" class="quantumuploadimage-input">
         <div class="quantumuploadimage-group-buttons">
-            <button class="btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button>
+			<?php if(isset($displayData['dropAreaHidden']) && (int)$displayData['dropAreaHidden']) : ?><button class="btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button><?php endif; ?>
             <button class="btn quantumuploadimage-change"
                aria-hidden="true"
                data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
@@ -63,9 +56,3 @@ $quantumOptions = [
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    window.QuantumuploadimageLang = {
-        'dragdrop': '<?php echo Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_DROP') . ' ' . Text::_('COM_QUANTUMMANAGER_QUANTUMUPLOAD_UPLOAD_SELECT') ?>'
-    };
-</script>

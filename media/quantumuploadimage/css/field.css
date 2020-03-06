@@ -1,27 +1,58 @@
 .quantumuploadimage-field {
+    position: relative;
     max-width: 500px;
     height: 350px;
     overflow: visible;
+}
+
+.quantumuploadimage-field .quantumupload-module {
+    height: 250px;
+    padding: 5px;
+    background: #fbfbfb;
+}
+
+.quantumuploadimage-field .quantumupload-module .drop-area {
+    height: calc(100% - 55px);
+    background: #fbfbfb;
+}
+
+.quantumuploadimage-field .quantumupload-module .drop-area .form-upload {
+   flex-wrap: wrap;
+}
+
+.quantumuploadimage-field .quantumupload-module progress {
+    position: absolute;
+    top: -5px;
+    z-index: 3;
+    left: 0;
 }
 
 .quantumuploadimage-field.quantumuploadimage-field-preview-hidden {
     height: auto;
 }
 
+.quantumuploadimage-field.quantumuploadimage-field-preview-hidden .quantumupload-module {
+    display: none;
+}
+
 .quantumuploadimage-field .quantumuploadimage-preview {
-    position: relative;
-    width: calc(100% - 4px);
-    height: 250px;
-    display: flex;
+    display: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    background: #fbfbfb;
+    height: 260px;
     align-items: center;
     align-self: center;
     justify-content: center;
-    background: #fbfbfb;
-    border: 2px dashed #ddd;
     text-align: center;
 }
 
-.quantumuploadimage-field.quantumuploadimage-field-preview-hidden .quantumuploadimage-preview{
+.quantumuploadimage-field .quantumuploadimage-preview.quantumuploadimage-preview-active {
+    display: flex;
+}
+
+.quantumuploadimage-field.quantumuploadimage-field-preview-hidden .quantumuploadimage-preview {
     display: none;
 }
 
@@ -29,20 +60,6 @@
     object-position: center;
     object-fit: contain;
     max-height: 250px;
-}
-
-.quantumuploadimage-field .quantumuploadimage-preview .drag-drop {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    height: 100%;
-}
-
-.quantumuploadimage-field .quantumuploadimage-preview .drag-drop .quantummanager-icon {
-    width: 50px;
-    height: 50px;
 }
 
 .quantumuploadimage-actions {
