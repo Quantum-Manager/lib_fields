@@ -36,6 +36,8 @@ document.addEventListener('DOMContentLoaded' ,function () {
 
         if(buttonCopy !== null) {
             buttonCopy.addEventListener('click', function (ev) {
+                ev.preventDefault();
+
                 if(input.value === '') {
                     return;
                 }
@@ -43,7 +45,6 @@ document.addEventListener('DOMContentLoaded' ,function () {
                 QuantumUtils.copyInBuffer(QuantumUtils.getFullUrl(input.value, true));
                 QuantumUtils.notify({text: QuantumLang.copied});
 
-                ev.preventDefault();
             });
         }
 
