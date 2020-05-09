@@ -52,7 +52,8 @@ $quantumOptions = [
                aria-hidden="true"
                data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
                rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_SELECT') ?></button>
-            <button class="btn quantumuploadimage-delete" aria-hidden="true"><span class="icon-remove"></span></button>
+            <?php if((int)$displayData['copy']) : ?><button class="btn quantumuploadimage-copy only-icon" aria-hidden="true"><span class="icon-copy"></span></button><?php endif; ?>
+            <button class="btn quantumuploadimage-delete only-icon" aria-hidden="true"><span class="icon-remove"></span></button>
         </div>
     </div>
 </div>

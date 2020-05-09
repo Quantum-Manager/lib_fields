@@ -41,9 +41,8 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 			$parentData['cssClass'] .= ' quantumuploadimage-field-preview-hidden';
 		}
 
-		$other = $layout->render(array_merge($parentData,
-			[
-
+		$other = $layout->render(array_merge($parentData, [
+                'copy' => $this->copy
 			]));
 
 		return array_merge($parentData,
@@ -58,6 +57,19 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 		try
 		{
 			$this->__set('dropAreaHidden', $this->getAttribute('dropAreaHidden', true));
+			$this->__set('copy', $this->getAttribute('copy', true));
+
+			if($this->copy)
+            {
+                JLoader::register('QuantummanagerLibs', JPATH_SITE . '/administrator/components/com_quantummanager/helpers/quantumlibs.php');
+
+                QuantummanagerLibs::includes([
+                    'utils',
+                    'notify',
+                    'clipboard'
+                ]);
+            }
+
 			return parent::getInput();
 		}
 		catch (Exception $e)

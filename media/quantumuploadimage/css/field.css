@@ -86,7 +86,10 @@
     flex: 2;
 }
 
+.quantumuploadimage-field .quantumuploadimage-group-buttons > .only-icon {
+    flex: 1;
+}
+
 .quantumuploadimage-field .quantumuploadimage-group-buttons > *:last-child {
     border-radius: 0 3px 3px 0;
-    flex: 1;
 }

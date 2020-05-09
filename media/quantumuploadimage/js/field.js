@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded' ,function () {
     for(let i=0;i<quantumuploadimageAll.length;i++) {
         let buttonUpload = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
             buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
+            buttonCopy = quantumuploadimageAll[i].querySelector('.quantumuploadimage-copy'),
             buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
             input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input'),
             quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
@@ -31,6 +32,19 @@ document.addEventListener('DOMContentLoaded' ,function () {
 
         if(input.value !== '') {
             QuantumuploadimageInsertFieldValue(input.value, input.getAttribute('id'));
+        }
+
+        if(buttonCopy !== null) {
+            buttonCopy.addEventListener('click', function (ev) {
+                if(input.value === '') {
+                    return;
+                }
+
+                QuantumUtils.copyInBuffer(QuantumUtils.getFullUrl(input.value, true));
+                QuantumUtils.notify({text: QuantumLang.copied});
+
+                ev.preventDefault();
+            });
         }
 
         if(buttonUpload !== null) {
