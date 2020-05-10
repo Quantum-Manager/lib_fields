@@ -27,13 +27,14 @@ $value = $displayData['value'];
 
 $app->getSession()->set('quantummanageraddscripts', json_encode([
 	'lib_fields/quantumuploadimage/modal.js'
-]));
+]), 'quantumuploadimage');
 
 $quantumOptions = [
 	'option' => 'com_quantummanager',
 	'tmpl' => 'component',
 	'layout' => 'modal',
 	'fieldid' => $displayData['id'],
+    'namespace' => 'quantumuploadimage'
 ];
 
 ?>
