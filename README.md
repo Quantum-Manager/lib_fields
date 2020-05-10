@@ -52,5 +52,5 @@
 - copy="false" - кнопка копирования ссылки на файл
 - directory="images/myfolder" - папка для загрузки
 - dropAreaHidden="true" - показ области превью и загрузки
-- dropAreaSize="small||medium||big" - размер области превью и загрузки
+- dropAreaSize="small|medium|big" - размер области превью и загрузки
 
