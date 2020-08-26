@@ -51,7 +51,7 @@ $quantumOptions = [
 			<?php if(isset($displayData['dropAreaHidden']) && (int)$displayData['dropAreaHidden']) : ?><button class="btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button><?php endif; ?>
             <button class="btn quantumuploadimage-change"
                aria-hidden="true"
-               data-source-href="index.php?<?php echo http_build_query($quantumOptions) ?>"
+               data-source-href="/administrator/index.php?<?php echo http_build_query($quantumOptions) ?>"
                rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_SELECT') ?></button>
             <?php if((int)$displayData['copy']) : ?><button class="btn quantumuploadimage-copy only-icon" aria-hidden="true"><span class="icon-copy"></span></button><?php endif; ?>
             <button class="btn quantumuploadimage-delete only-icon" aria-hidden="true"><span class="icon-remove"></span></button>
