@@ -33,7 +33,6 @@ $quantumOptions = [
 	'option' => 'com_quantummanager',
 	'tmpl' => 'component',
 	'layout' => 'modal',
-	'fieldid' => $displayData['id'],
     'namespace' => 'quantumuploadimage'
 ];
 

@@ -1,4 +1,5 @@
 window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
+    console.log(fieldid);
     let input = document.querySelector('#' + fieldid),
         wrap = input.closest('.quantumuploadimage-field');
     if(value.slice(0, 1) === '/') {
@@ -19,8 +20,25 @@ function updateImage(wrap, image) {
     }
 }
 
-document.addEventListener('DOMContentLoaded' ,function () {
-    let quantumuploadimageAll = document.querySelectorAll('.quantumuploadimage-field');
+document.addEventListener('DOMContentLoaded', function () {
+    initQuantumuploadimage();
+});
+
+
+//support subform add row
+if(window.jQuery !== undefined) {
+    jQuery(document).on('subform-row-add', function(event, row) {
+        initQuantumuploadimage(row);
+    });
+}
+
+function initQuantumuploadimage(container) {
+
+    if(container === null || container === undefined) {
+        container = document;
+    }
+
+    let quantumuploadimageAll = container.querySelectorAll('.quantumuploadimage-field');
     for(let i=0;i<quantumuploadimageAll.length;i++) {
         let buttonUpload = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
             buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
@@ -56,7 +74,7 @@ document.addEventListener('DOMContentLoaded' ,function () {
         }
 
         buttonChange.addEventListener('click', function (ev) {
-            let url = this.getAttribute('data-source-href');
+            let url = this.getAttribute('data-source-href') + '&fieldid=' + input.getAttribute('id');
             if(input.value !== '') {
                 let paths = input.value.split('/');
                 paths.pop();
@@ -95,4 +113,4 @@ document.addEventListener('DOMContentLoaded' ,function () {
 
         });
     }
-});
+}
