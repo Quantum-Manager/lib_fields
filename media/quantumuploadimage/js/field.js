@@ -13,7 +13,7 @@ function updateImage(wrap, image) {
     let preview = wrap.querySelector('.quantumuploadimage-preview');
     if(image !== '') {
         preview.classList.add('quantumuploadimage-preview-active');
-        preview.innerHTML = '<img src="/' + image + '" />';
+        preview.innerHTML = '<img src="' + QuantumSettings.urlBase + '/' + image + '" />';
     } else {
         preview.classList.remove('quantumuploadimage-preview-active');
     }
