@@ -73,7 +73,7 @@ function initQuantumuploadimage(container) {
         }
 
         buttonChange.addEventListener('click', function (ev) {
-            let url = this.getAttribute('data-source-href') + '&fieldid=' + input.getAttribute('id');
+            let url = QuantumUtils.getFullUrl('/administrator/index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
             if(input.value !== '') {
                 let paths = input.value.split('/');
                 paths.pop();
