@@ -39,77 +39,93 @@ function initQuantumuploadimage(container) {
 
     let quantumuploadimageAll = container.querySelectorAll('.quantumuploadimage-field');
     for(let i=0;i<quantumuploadimageAll.length;i++) {
-        let buttonUpload = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
-            buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
-            buttonCopy = quantumuploadimageAll[i].querySelector('.quantumuploadimage-copy'),
-            buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
-            input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input'),
-            quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
-            fmIndex = parseInt(quantummanager.getAttribute('data-index'));
 
-        if(input.value !== '') {
-            QuantumuploadimageInsertFieldValue(input.value, input.getAttribute('id'));
-        }
+        let wait_quantum = setInterval(function () {
 
-        if(buttonCopy !== null) {
-            buttonCopy.addEventListener('click', function (ev) {
-                ev.preventDefault();
+            let quantummanager = quantumuploadimageAll[i].closest('.quantummanager'),
+                fmIndex = parseInt(quantummanager.getAttribute('data-index'));
 
-                if(input.value === '') {
-                    return;
-                }
-
-                QuantumUtils.copyInBuffer(QuantumUtils.getFullUrl(input.value, true));
-                QuantumUtils.notify({text: QuantumLang.copied});
-
-            });
-        }
-
-        if(buttonUpload !== null) {
-            buttonUpload.addEventListener('click', function (ev) {
-                QuantummanagerLists[fmIndex].Qantumupload.selectFiles();
-                ev.preventDefault();
-            });
-        }
-
-        buttonChange.addEventListener('click', function (ev) {
-            let url = QuantumUtils.getFullUrl('/administrator/index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
-            if(input.value !== '') {
-                let paths = input.value.split('/');
-                paths.pop();
-                url += '&folder=' + paths.join('/').replace('images/', '');
-            }
-            SqueezeBox.open(url, {handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'});
-            ev.preventDefault();
-        });
-
-        buttonDelete.addEventListener('click', function (ev) {
-            QuantumuploadimageInsertFieldValue('', input.getAttribute('id'));
-            ev.preventDefault();
-        });
-
-        input.addEventListener('change', function () {
-            this.value = this.value.replace(QuantumSettings.urlFull, '');
-            QuantumuploadimageInsertFieldValue(this.value, input.getAttribute('id'));
-        });
-
-        QuantummanagerLists[fmIndex].events.add(this, 'uploadComplete', function (fm, el) {
-            if(fm.Qantumupload.filesLists === undefined || fm.Qantumupload.filesLists.length === 0) {
+            if (!isNaN(fmIndex)) {
+                clearInterval(wait_quantum);
+            } else {
                 return;
             }
 
-            let pathFile = fm.data.path + '/' + fm.Qantumupload.filesLists[0];
-            jQuery.get(QuantumUtils.getFullUrl("/administrator/index.php?option=com_quantummanager&task=quantumviewfiles.getParsePath&path=" + encodeURIComponent(pathFile) +
-                '&scope=' + fm.data.scope +
-                '&v=' + QuantumUtils.randomInteger(111111, 999999))).done(function (response) {
-                response = JSON.parse(response);
+            let buttonUpload = quantumuploadimageAll[i].querySelector('.quantumuploadimage-upload-start'),
+                buttonChange = quantumuploadimageAll[i].querySelector('.quantumuploadimage-change'),
+                buttonCopy = quantumuploadimageAll[i].querySelector('.quantumuploadimage-copy'),
+                buttonDelete = quantumuploadimageAll[i].querySelector('.quantumuploadimage-delete'),
+                input = quantumuploadimageAll[i].querySelector('.quantumuploadimage-input');
 
-                if(response.path !== undefined) {
-                    QuantumuploadimageInsertFieldValue(response.path, input.getAttribute('id'));
+            if (input.value !== '') {
+                QuantumuploadimageInsertFieldValue(input.value, input.getAttribute('id'));
+            }
+
+            if (buttonCopy !== null) {
+                buttonCopy.addEventListener('click', function (ev) {
+                    ev.preventDefault();
+
+                    if (input.value === '') {
+                        return;
+                    }
+
+                    QuantumUtils.copyInBuffer(QuantumUtils.getFullUrl(input.value, true));
+                    QuantumUtils.notify({text: QuantumLang.copied});
+
+                });
+            }
+
+            if (buttonUpload !== null) {
+                buttonUpload.addEventListener('click', function (ev) {
+                    QuantummanagerLists[fmIndex].Qantumupload.selectFiles();
+                    ev.preventDefault();
+                });
+            }
+
+            buttonChange.addEventListener('click', function (ev) {
+                let url = QuantumUtils.getFullUrl('/administrator/index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
+                if (input.value !== '') {
+                    let paths = input.value.split('/');
+                    paths.pop();
+                    url += '&folder=' + paths.join('/').replace('images/', '');
                 }
-
+                SqueezeBox.open(url, {
+                    handler: 'iframe',
+                    size: {x: 1450, y: 700},
+                    classWindow: 'quantummanager-modal-sbox-window'
+                });
+                ev.preventDefault();
             });
 
-        });
+            buttonDelete.addEventListener('click', function (ev) {
+                QuantumuploadimageInsertFieldValue('', input.getAttribute('id'));
+                ev.preventDefault();
+            });
+
+            input.addEventListener('change', function () {
+                this.value = this.value.replace(QuantumSettings.urlFull, '');
+                QuantumuploadimageInsertFieldValue(this.value, input.getAttribute('id'));
+            });
+
+            QuantummanagerLists[fmIndex].events.add(this, 'uploadComplete', function (fm, el) {
+                if (fm.Qantumupload.filesLists === undefined || fm.Qantumupload.filesLists.length === 0) {
+                    return;
+                }
+
+                let pathFile = fm.data.path + '/' + fm.Qantumupload.filesLists[0];
+                jQuery.get(QuantumUtils.getFullUrl("/administrator/index.php?option=com_quantummanager&task=quantumviewfiles.getParsePath&path=" + encodeURIComponent(pathFile) +
+                    '&scope=' + fm.data.scope +
+                    '&v=' + QuantumUtils.randomInteger(111111, 999999))).done(function (response) {
+                    response = JSON.parse(response);
+
+                    if (response.path !== undefined) {
+                        QuantumuploadimageInsertFieldValue(response.path, input.getAttribute('id'));
+                    }
+
+                });
+
+            });
+        }, 100);
+
     }
 }
