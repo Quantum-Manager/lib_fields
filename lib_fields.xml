@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension version="2.5.0" type="library" method="upgrade">
+<extension version="3.*" type="library" method="upgrade">
     <name>Lib fields</name>
     <libraryname>lib_fields</libraryname>
     <author>JPath</author>
@@ -9,17 +9,13 @@
     <copyright>Copyright (C) 2020 "JPath". All rights reserved.</copyright>
     <license>GPL v3</license>
     <version>1.3.2</version>
-    <description>Library fields.</description>
+    <description>Library fields</description>
 
     <updateservers>
         <server type="extension" priority="1" name="Lib fields">
             https://hika.su/update/free/lib_fields.xml
         </server>
     </updateservers>
-
-    <media folder="media" destination="lib_fields">
-        <folder>quantumuploadimage</folder>
-    </media>
 
     <files>
         <folder>fields</folder>
