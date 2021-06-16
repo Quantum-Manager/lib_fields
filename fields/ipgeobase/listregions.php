@@ -1,4 +1,4 @@
-<?php
+<?php defined('JPATH_PLATFORM') or die;
 /**
  * @package     Joomla.Legacy
  * @subpackage  Form
@@ -12,7 +12,6 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 
-defined('JPATH_PLATFORM') or die;
 
 FormHelper::loadFieldClass('text');
 
@@ -43,17 +42,17 @@ class JFormFieldListregions extends JFormFieldText
         HTMLHelper::_( 'jquery.framework' );
         $this->class .= " list-region";
 
-        HTMLHelper::script('lib_ipgeobase/listregions.js', [
+        HTMLHelper::script('lib_fields/ipgeobase/listregions.js', [
             'version' => filemtime ( __FILE__ ),
             'relative' => true,
         ]);
 
-        HTMLHelper::_('stylesheet', 'lib_ipgeobase/autocomplete.css', [
+        HTMLHelper::_('stylesheet', 'lib_fields/ipgeobase/autocomplete.css', [
             'version' => filemtime ( __FILE__ ),
             'relative' => true,
         ]);
 
-        HTMLHelper::_('script','lib_ipgeobase/autocomplete.js', [
+        HTMLHelper::_('script','lib_fields/ipgeobase/autocomplete.js', [
             'version' => filemtime ( __FILE__ ),
             'relative' => true,
         ]);

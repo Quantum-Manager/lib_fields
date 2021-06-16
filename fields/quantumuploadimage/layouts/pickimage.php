@@ -1,10 +1,9 @@
-<?php
+<?php defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
-defined('_JEXEC') or die;
 extract($displayData);
 
 HTMLHelper::_('behavior.modal');
@@ -18,8 +17,6 @@ HTMLHelper::_('script', 'lib_fields/quantumuploadimage/field.js', [
 	'version' => filemtime(__FILE__),
 	'relative' => true
 ]);
-
-
 
 $app = Factory::getApplication();
 $img = !empty($displayData['value']) ? '/' . $displayData['value'] : '';
