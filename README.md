@@ -4,6 +4,8 @@
 Иногда нужно в JForm создавать раз за разом типовые поля, поэтому имеет смысл объединить в библиотеку.
 
 ### Список полей:
+- audio
+- html5
 - ipgeobase
 - layouts
 - listarticles
@@ -12,6 +14,8 @@
 - selectmenuitem
 - subformmore
 - usersgroup
+- video
+- yandexmaps
 
 ### Как вставлять в формы
 Пример как вставлять в xml JForm вы можете в файле [docs/example.md](https://github.com/JPathRu/lib_fields/blob/newfields/docs/example.md)
