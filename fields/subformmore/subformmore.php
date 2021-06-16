@@ -1,4 +1,4 @@
-<?php
+<?php defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -16,7 +16,7 @@ class JFormFieldSubformmore extends JFormFieldSubform
 
 	public function getLayoutPaths()
 	{
-		return array_merge([JPATH_ROOT . '/plugins/system/revo_optimizer/layouts/fields'], parent::getLayoutPaths());
+		return array_merge([__DIR__ . '/layouts'], parent::getLayoutPaths());
 	}
 
 
@@ -28,12 +28,12 @@ class JFormFieldSubformmore extends JFormFieldSubform
 
 	public function getInput()
 	{
-		HTMLHelper::_('stylesheet', 'plg_system_revo_optimizer/subformmore.css', [
+		HTMLHelper::_('stylesheet', 'lib_fields/subformmore/subformmore.css', [
 			'version' => filemtime(__FILE__),
 			'relative' => true
 		]);
 
-		HTMLHelper::_('script', 'plg_system_revo_optimizer/subformmore.js', [
+		HTMLHelper::_('script', 'lib_fields/subformmore/subformmore.js', [
 			'version' => filemtime(__FILE__),
 			'relative' => true
 		]);
