@@ -1,4 +1,5 @@
 <?php defined('JPATH_PLATFORM') or die;
+
 /**
  * @package     Joomla.Legacy
  * @subpackage  Form
@@ -6,12 +7,12 @@
  * @license     GNU General Public License version 3 or later; see LICENSE.txt
  */
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Filesystem\Path;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 class JFormFieldLayoutsPlugin extends FormField
@@ -22,7 +23,8 @@ class JFormFieldLayoutsPlugin extends FormField
 	{
 		$clientId = $this->element['client_id'];
 
-		if ($clientId === null && $this->form instanceof Form) {
+		if ($clientId === null && $this->form instanceof Form)
+		{
 			$clientId = $this->form->getValue('client_id');
 		}
 
@@ -30,13 +32,15 @@ class JFormFieldLayoutsPlugin extends FormField
 
 		$client = ApplicationHelper::getClientInfo($clientId);
 
-		if (($this->form instanceof Form)) {
+		if (($this->form instanceof Form))
+		{
 			$plugin = $this->form->getValue('type');
 		}
 
 		$plugin = $this->element['plugin'];
 
-		if (empty($plugin) && ($this->form instanceof Form)) {
+		if (empty($plugin) && ($this->form instanceof Form))
+		{
 			$plugin = $this->form->getValue('element');
 		}
 
@@ -44,7 +48,8 @@ class JFormFieldLayoutsPlugin extends FormField
 
 		$folder = $this->form->getValue('folder');
 
-		if ($plugin && $client) {
+		if ($plugin && $client)
+		{
 
 			$pluginFullName = 'plg_' . $folder . '_' . $plugin;
 
@@ -52,16 +57,17 @@ class JFormFieldLayoutsPlugin extends FormField
 			$template = preg_replace('#\W#', '', $template);
 
 			$template_style_id = '';
-			if ($this->form instanceof Form) {
+			if ($this->form instanceof Form)
+			{
 				$template_style_id = $this->form->getValue('template_style_id');
 				$template_style_id = preg_replace('#\W#', '', $template_style_id);
 			}
 
 			$lang = Factory::getLanguage();
 			$lang->load($plugin . '.sys', $client->path, null, false, true)
-				|| $lang->load($plugin . '.sys', $client->path . '/plugins/' . $folder . '/' . $plugin, null, false, true);
+			|| $lang->load($plugin . '.sys', $client->path . '/plugins/' . $folder . '/' . $plugin, null, false, true);
 
-			$db = Factory::getDbo();
+			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
 
 			$query
@@ -71,11 +77,13 @@ class JFormFieldLayoutsPlugin extends FormField
 				->where('e.type = ' . $db->quote('template'))
 				->where('e.enabled = 1');
 
-			if ($template) {
+			if ($template)
+			{
 				$query->where('e.element = ' . $db->quote($template));
 			}
 
-			if ($template_style_id) {
+			if ($template_style_id)
+			{
 				$query
 					->join('LEFT', '#__template_styles as s on s.template=e.element')
 					->where('s.id=' . (int) $template_style_id);
@@ -90,43 +98,51 @@ class JFormFieldLayoutsPlugin extends FormField
 
 			$groups = [];
 
-			if (is_dir($plugin_path) && ($plugin_layouts = \JFolder::files($plugin_path, '^[^_]*\.php$'))) {
-				$groups['_'] = [];
-				$groups['_']['id'] = $this->id . '__';
-				$groups['_']['text'] = Text::sprintf('JOPTION_FROM_PLUGIN');
+			if (is_dir($plugin_path) && ($plugin_layouts = \JFolder::files($plugin_path, '^[^_]*\.php$')))
+			{
+				$groups['_']          = [];
+				$groups['_']['id']    = $this->id . '__';
+				$groups['_']['text']  = Text::sprintf('JOPTION_FROM_PLUGIN');
 				$groups['_']['items'] = [];
-				
-				foreach ($plugin_layouts as $file) {
-					$value = basename($file, '.php');
-					$text = $lang->hasKey($key = strtoupper($plugin . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
+
+				foreach ($plugin_layouts as $file)
+				{
+					$value                  = basename($file, '.php');
+					$text                   = $lang->hasKey($key = strtoupper($plugin . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
 					$groups['_']['items'][] = HTMLHelper::_('select.option', '_:' . $value, $text);
 				}
 			}
 
-			if ($templates) {
+			if ($templates)
+			{
 				foreach ($templates as $template)
 				{
 					$lang->load('tpl_' . $template->element . '.sys', $client->path, null, false, true)
-						|| $lang->load('tpl_' . $template->element . '.sys', $client->path . '/templates/' . $template->element, null, false, true);
+					|| $lang->load('tpl_' . $template->element . '.sys', $client->path . '/templates/' . $template->element, null, false, true);
 
 					$template_path = Path::clean($client->path . '/templates/' . $template->element . '/html/layouts/plugins/' . $folder . '/' . $plugin);
 
-					if (is_dir($template_path) && ($files = \JFolder::files($template_path, '^[^_]*\.php$'))) {
-						foreach ($files as $i => $file) {
-							if (in_array($file, $plugin_layouts)) {
+					if (is_dir($template_path) && ($files = \JFolder::files($template_path, '^[^_]*\.php$')))
+					{
+						foreach ($files as $i => $file)
+						{
+							if (in_array($file, $plugin_layouts))
+							{
 								unset($files[$i]);
 							}
 						}
 
-						if (count($files)) {
-							$groups[$template->element] = [];
-							$groups[$template->element]['id'] = $this->id . '_' . $template->element;
-							$groups[$template->element]['text'] = Text::sprintf('JOPTION_FROM_TEMPLATE', $template->name);
+						if (count($files))
+						{
+							$groups[$template->element]          = [];
+							$groups[$template->element]['id']    = $this->id . '_' . $template->element;
+							$groups[$template->element]['text']  = Text::sprintf('JOPTION_FROM_TEMPLATE', $template->name);
 							$groups[$template->element]['items'] = [];
 
-							foreach ($files as $file) {
-								$value = basename($file, '.php');
-								$text = $lang->hasKey($key = strtoupper('TPL_' . $template->element . '_' . $plugin . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
+							foreach ($files as $file)
+							{
+								$value                                 = basename($file, '.php');
+								$text                                  = $lang->hasKey($key = strtoupper('TPL_' . $template->element . '_' . $plugin . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
 								$groups[$template->element]['items'][] = HTMLHelper::_('select.option', $template->element . ':' . $value, $text);
 							}
 						}
@@ -146,7 +162,9 @@ class JFormFieldLayoutsPlugin extends FormField
 			);
 
 			return implode($html);
-		} else {
+		}
+		else
+		{
 			return '';
 		}
 	}

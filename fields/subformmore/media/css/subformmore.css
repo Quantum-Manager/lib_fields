@@ -1,0 +1,43 @@
+.subform-subformmore-layout .controls {
+    padding-right: 20px;
+}
+
+.subform-subformmore-layout [data-column] input {
+    width: 100%;
+}
+
+.subformmore-accordion {
+    background-color: #F0F0F0;
+    color: #444;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+.subformmore-accordion:after {
+    content: '\02795';
+    font-size: 13px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+.subformmore-accordion.active:after {
+    content: "\2796";
+}
+
+.subformmore-accordion.active,
+.subformmore-accordion:hover {
+    background-color: #ccc;
+}
+
+.subformmore-panel {
+    padding: 20px;
+    background-color: white;
+    display: none;
+    /*overflow: hidden;*/
+}
