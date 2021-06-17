@@ -1,8 +1,16 @@
-<?php
+<?php defined('JPATH_PLATFORM') or die;
+
+use Joomla\CMS\Form\FormHelper;
+
+FormHelper::loadFieldClass('text');
+
 /**
- * @package     ${NAMESPACE}
- * @subpackage
+ * Form Field class for the Joomla Platform.
+ * Supports an HTML select list of categories
  *
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * @since  1.6
  */
+class JFormFieldHtml5range extends JFormFieldText
+{
+
+}

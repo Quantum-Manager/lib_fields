@@ -60,7 +60,7 @@ abstract class JHtmlArticles
 				{
 					$query->where('con.state = ' . (int) $config['filter.published']);
 				}
-				elseif (is_array($config['filter.state']))
+				elseif (is_array($config['filter.published']))
 				{
 					$config['filter.published'] = ArrayHelper::toInteger($config['filter.published']);
 					$query->where('con.state IN (' . implode(',', $config['filter.published']) . ')');

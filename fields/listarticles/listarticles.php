@@ -61,7 +61,7 @@ class JFormFieldListarticles extends JFormFieldList
 
 			foreach ($options as $option)
 			{
-				$this->addOption($option->text, ['value' => $option->key]);
+				$this->addOption($option->text, ['value' => $option->value]);
 			}
 
 			return parent::getInput();

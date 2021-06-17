@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     var point = obj.properties.get('metaDataProperty.GeocoderMetaData.InternalToponymInfo.Point');
                     list[i].value = fulladdress + ';' + point.coordinates[1] + ',' + point.coordinates[0];
                 }, function (e) {
-                })
+
+                });
             });
         }
     });
