@@ -4,18 +4,13 @@ use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
-use Joomla\Filesystem\Path;
 
 FormHelper::loadFieldClass('list');
+JLoader::register('LayoutPathsHelper', __DIR__ . '/helpers/LayoutPathsHelper.php');
+
 
 class JFormFieldLayouts extends JFormFieldList
 {
-
-
-	protected $paths = [];
-
-
-	protected $cache_paths = [];
 
 
 	public function getInput()
@@ -25,92 +20,12 @@ class JFormFieldLayouts extends JFormFieldList
 		$target      = $this->getAttribute('target', '');
 		$options     = [];
 		$files_exist = [];
-		$result      = [];
-		$templates   = Folder::folders(JPATH_ROOT . '/templates');
 		$attr        = $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
 		$attr        .= $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
+		$groups      = [];
+		$paths       = new LayoutPathsHelper($target, $values);
 
-		$this->setPaths();
-		if (empty($target))
-		{
-			$this->addPath([
-				'type' => 'joomla',
-				'path' => JPATH_ROOT . '/layouts'
-			]);
-		}
-
-		if (strpos($values, '::') !== false)
-		{
-			$executes = explode(',', $values);
-
-			foreach ($executes as $execute)
-			{
-				[$class, $method] = explode('::', $execute);
-
-				if (class_exists($class) && method_exists($class, $method))
-				{
-					$result = forward_static_call([$class, $method]);
-				}
-			}
-
-		}
-
-		foreach ($templates as $template)
-		{
-			if (empty($target))
-			{
-				$this->addPath([
-					'type' => 'template',
-					'name' => $template,
-					'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts'
-				]);
-			}
-
-			if (is_array($result))
-			{
-				foreach ($result as $value)
-				{
-					if (strpos($value, '{TEMPLATES}') !== false)
-					{
-						$this->addPath([
-							'type' => 'template',
-							'name' => $template,
-							'path' => str_replace('{TEMPLATES}', JPATH_ROOT . '/templates/' . $template, $value)
-						]);
-						continue;
-					}
-
-					$this->addPath([
-						'type' => 'joomla',
-						'path' => $value
-					]);
-				}
-			}
-
-			if (!empty($target))
-			{
-				$targets = explode(',', $target);
-				foreach ($targets as $target_c)
-				{
-					$tmp = str_replace('.', '/', $target_c);
-					$this->addPath([
-						'type' => 'template',
-						'name' => $template,
-						'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts/' . $tmp
-					]);
-
-					$this->addPath([
-						'type' => 'joomla',
-						'name' => $template,
-						'path' => JPATH_ROOT . '/layouts/' . $tmp
-					]);
-				}
-			}
-		}
-
-		$groups = [];
-
-		foreach ($this->getPaths() as $path)
+		foreach ($paths->get() as $path)
 		{
 			if (file_exists($path['path']))
 			{
@@ -179,33 +94,6 @@ class JFormFieldLayouts extends JFormFieldList
 		);
 
 		return implode($html);
-	}
-
-
-	protected function setPaths($paths = [])
-	{
-		$this->paths = $paths;
-	}
-
-
-	protected function getPaths()
-	{
-		return $this->paths;
-	}
-
-
-	protected function addPath($path)
-	{
-		if (in_array($path['path'], $this->cache_paths))
-		{
-			return false;
-		}
-
-		$path['path']        = Path::clean($path['path']);
-		$this->cache_paths[] = $path['path'];
-		$this->paths[]       = $path;
-
-		return true;
 	}
 
 }
