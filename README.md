@@ -6,7 +6,6 @@
 
 
 ### Список групп полей
-- html5 [Документация](https://github.com/JPathRu/lib_fields/blob/master/docs/fields/html5.md)
 - ipgeobase [Документация](https://github.com/JPathRu/lib_fields/blob/master/docs/fields/ipgeobase.md)
 - layouts [Документация](https://github.com/JPathRu/lib_fields/blob/master/docs/fields/layouts.md)
 - listarticles [Документация](https://github.com/JPathRu/lib_fields/blob/master/docs/fields/listarticles.md)
