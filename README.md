@@ -18,6 +18,6 @@
 
 
 ### Документация
-- [Как вставлять в xml для JForm](https://github.com/JPathRu/lib_fields/blob/master/docs/example.md)
+- [Как вставлять в xml для Form (JForm)](https://github.com/JPathRu/lib_fields/blob/master/docs/example.md)
 - [Описания всех полей](https://github.com/JPathRu/lib_fields/tree/master/docs/fields)
 - [Как наследовать поля в php и расширять](https://github.com/JPathRu/lib_fields/blob/master/docs/extend.md)
