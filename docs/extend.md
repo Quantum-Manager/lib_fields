@@ -2,7 +2,10 @@
 
 ### Загрузите путь
 Сначала вам надо зарегистрировать путь поля.
-\Joomla\CMS\Form\FormHelper\FormHelper::addFieldPath();  <br/>
+```php
+\Joomla\CMS\Form\FormHelper\FormHelper::addFieldPath();
+```
+
 Например, зарегистрируем поле listarticles.
 ```php
 \Joomla\CMS\Form\FormHelper\FormHelper::addFieldPath(
