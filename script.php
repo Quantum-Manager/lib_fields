@@ -32,7 +32,6 @@ class Lib_fieldsInstallerScript
 		foreach ($folders as $folder)
 		{
 			$path_current = $path . '/' . $folder . '/media';
-			var_dump($path_current);
 			if (file_exists($path_current))
 			{
 				$copyFiles[] = [
