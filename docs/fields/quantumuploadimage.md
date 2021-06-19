@@ -1,10 +1,31 @@
-#### **Поле загрузки от Quantum Manager** (Quantumuploadimage)
+# Группа полей Quantumuploadimage
 
-Тип поля: JFormFieldQuantumupload
 
-Атрибуты:
-- maxsize="2" указать максимумальную загрузку файла в мегабайтах (только клиентская проверка идет)
-- copy="false" - кнопка копирования ссылки на файл
-- directory="images/myfolder" - папка для загрузки
-- dropAreaHidden="true" - показ области превью и загрузки
-- dropAreaSize="small|medium|big" - размер области превью и загрузки
+## Зависимости
+Для использования поля требуется установить Qauntum Manager пакет:
+- [Qauntum Manager](https://github.com/Quantum-Manager/start)
+
+
+## Поля
+
+### Поле quantumuploadimage
+#### Описание
+Загрузка файлов с помощью Quantum Manager.
+
+#### Атрибуты
+- maxsize="2" - число | указать максимальную загрузку файла в мегабайтах (только клиентская проверка идет)
+- copy="true" - булево значение | кнопка копирования ссылки на файл
+- directory="images/myfolder" - строка | папка для загрузки
+- dropAreaHidden="true" - булево значение | показ области превью и загрузки
+
+#### Пример xml
+```xml
+<field
+    name="myfile"
+    type="quantumuploadimage"
+    label="Мое название поля"
+    description="Мое описание поля"
+    dropAreaHidden="0"
+    addfieldpath="libraries/lib_fields/quantumuploadimage"
+/>
+```
