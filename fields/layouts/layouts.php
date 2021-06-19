@@ -1,6 +1,8 @@
 <?php defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
 
 FormHelper::loadFieldClass('list');
@@ -15,19 +17,23 @@ class JFormFieldLayouts extends JFormFieldList
 	protected $cache_paths = [];
 
 
-	public function getOptions()
+	public function getInput()
 	{
+		$html        = [];
+		$values      = $this->getAttribute('values', '');
+		$target      = $this->getAttribute('target', '');
+		$options     = [];
+		$files_exist = [];
+		$result      = [];
+		$templates   = Folder::folders(JPATH_ROOT . '/templates');
+		$attr        = $this->element['size'] ? ' size="' . (int) $this->element['size'] . '"' : '';
+		$attr        .= $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
+
 		$this->setPaths();
-		$values  = $this->getAttribute('values', '');
-		$target  = $this->getAttribute('target', '');
-		$options = [];
 		$this->addPath([
 			'type' => 'joomla',
 			'path' => JPATH_ROOT . '/layouts'
 		]);
-		$files_exist = [];
-		$result      = [];
-		$templates   = Folder::folders(JPATH_ROOT . '/templates');
 
 		if (strpos($values, '::') !== false)
 		{
@@ -35,7 +41,7 @@ class JFormFieldLayouts extends JFormFieldList
 
 			foreach ($executes as $execute)
 			{
-				list($class, $method) = explode('::', $execute);
+				[$class, $method] = explode('::', $execute);
 
 				if (class_exists($class) && method_exists($class, $method))
 				{
@@ -88,6 +94,8 @@ class JFormFieldLayouts extends JFormFieldList
 			}
 		}
 
+		$groups = [];
+
 		foreach ($this->getPaths() as $path)
 		{
 			if (file_exists($path['path']))
@@ -109,16 +117,54 @@ class JFormFieldLayouts extends JFormFieldList
 						continue;
 					}
 
-					$option        = new stdClass();
-					$option->value = ($path['type'] === 'template') ? ($path['name'] . '::' . $name) : $name;
-					$option->text  = ($path['type'] === 'template') ? ($path['name'] . '::' . $name) : $name;
-					$options[]     = $option;
+					$subgroup = $path['name'] ?? 'joomla';
+					if (!isset($groups[$path['type']]))
+					{
+						$groups[$path['type']] = [];
+					}
+
+					if (!isset($groups[$path['type']][$subgroup]))
+					{
+						$groups[$path['type']][$subgroup] = [];
+					}
+
+					$option                             = new stdClass();
+					$option->value                      = ($path['type'] === 'template') ? ($path['name'] . '::' . $name) : $name;
+					$option->text                       = $name;
+					$groups[$path['type']][$subgroup][] = $option;
 				}
 			}
 
 		}
 
-		return array_merge(parent::getOptions(), $options);
+		foreach ($groups as $name => $options_c)
+		{
+
+			foreach ($options_c as $subgroup => $options_sub)
+			{
+				$options[$subgroup] = [
+					'id'    => $name . '.' . $subgroup,
+					'text'  => '',
+					'items' => [],
+				];
+
+				if ($name === 'template')
+				{
+					$options[$subgroup]['text'] = Text::sprintf('JOPTION_FROM_TEMPLATE', $subgroup);
+				}
+
+				$options[$subgroup]['items'] = array_merge($options[$subgroup]['items'], $options_sub);
+			}
+
+		}
+
+		$selected = [$this->value];
+		$html[]   = HTMLHelper::_(
+			'select.groupedlist', $options, $this->name,
+			['id' => $this->id, 'group.id' => 'id', 'list.attr' => $attr, 'list.select' => $selected]
+		);
+
+		return implode($html);
 	}
 
 
