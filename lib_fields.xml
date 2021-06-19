@@ -11,6 +11,8 @@
     <version>2.0</version>
     <description>Library fields</description>
 
+    <scriptfile>script.php</scriptfile>
+
     <updateservers>
         <server type="extension" priority="1" name="Lib fields">
             https://hika.su/update/free/lib_fields.xml
