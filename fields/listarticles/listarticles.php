@@ -1,18 +1,7 @@
-<?php
-/**
- * @package     Joomla.Legacy
- * @subpackage  Form
- *
- * @copyright   Copyright (C) 2005 - 2018 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- */
+<?php defined('JPATH_PLATFORM') or die;
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
-
-defined('JPATH_PLATFORM') or die;
 
 FormHelper::loadFieldClass('list');
 
@@ -40,24 +29,28 @@ class JFormFieldListarticles extends JFormFieldList
 	 */
 	public function getInput()
 	{
-		try {
+		try
+		{
 			HTMLHelper::addIncludePath(JPATH_ROOT . '/libraries/lib_fields/fields/listarticles/helpers');
 
-			$filters['filter.q'] = $this->getAttribute('q', '');
-			$filters['filter.limit'] = $this->getAttribute('limit', '');
+			$filters['filter.q']         = $this->getAttribute('q', '');
+			$filters['filter.limit']     = $this->getAttribute('limit', '');
 			$filters['filter.published'] = $this->getAttribute('published', '');
-			$filters['filter.language'] = $this->getAttribute('language', '');
-			$filters['filter.ids'] = $this->getAttribute('ids', '');
-			$filters['filter.category'] = $this->getAttribute('category', '');
-			$filtersClean = [];
+			$filters['filter.language']  = $this->getAttribute('language', '');
+			$filters['filter.ids']       = $this->getAttribute('ids', '');
+			$filters['filter.category']  = $this->getAttribute('category', '');
+			$filtersClean                = [];
 
-			foreach ($filters as $key => $filter) {
-				if (empty($filter)) {
+			foreach ($filters as $key => $filter)
+			{
+				if (empty($filter))
+				{
 					continue;
 				}
 
 				$value = $filter;
-				if (in_array($key, ['filter.published', 'filter.ids'])) {
+				if (in_array($key, ['filter.published', 'filter.ids']))
+				{
 					$value = explode(',', $value);
 				}
 
@@ -66,8 +59,9 @@ class JFormFieldListarticles extends JFormFieldList
 
 			$options = HTMLHelper::_('articles.options', $filtersClean);
 
-			foreach ($options as $option) {
-				$this->addOption($option->text, ['value' => $option->key]);
+			foreach ($options as $option)
+			{
+				$this->addOption($option->text, ['value' => $option->value]);
 			}
 
 			return parent::getInput();

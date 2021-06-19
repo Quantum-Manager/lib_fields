@@ -1,0 +1,62 @@
+.selectmenuitem ul {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-right: 4px;
+    margin-left: 0;
+    padding-left: 20px;
+    margin-top: 6px;
+    list-style: none;
+    border-left: 1px dashed #969696;
+}
+
+.selectmenuitem > ul {
+    margin-top: 15px;
+    padding-left: 0;
+    border-left: none;
+}
+
+.selectmenuitem ul.hide {
+    display: none;
+}
+
+.selectmenuitem-heading {
+    font-weight: bold;
+}
+
+.selectmenuitem ul li {
+    display: block;
+    width: 100%;
+}
+
+.selectmenuitem li {
+    margin-bottom: 6px;
+}
+
+.selectmenuitem li:last-child {
+    margin-bottom: 0;
+}
+
+.selectmenuitem-label-wrap,
+.selectmenuitem-label-wrap .selectmenuitem-carret,
+.selectmenuitem-label-wrap .selectmenuitem-label {
+    display: flex;
+    align-content: center;
+    align-self: center;
+}
+
+.selectmenuitem-label-wrap .selectmenuitem-carret {
+    width: 15px;
+    margin-right: 5px;
+}
+
+.selectmenuitem-label-wrap .selectmenuitem-carret:hover {
+    cursor: pointer;
+    opacity: .8;
+}
+
+.selectmenuitem-label-wrap .selectmenuitem-label input,
+.selectmenuitem-label-wrap .selectmenuitem-label label {
+    margin-right: 5px;
+    margin-bottom: 0;
+}

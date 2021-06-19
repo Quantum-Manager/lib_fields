@@ -1,7 +1,4 @@
-<?php
-
-
-defined('JPATH_PLATFORM') or die;
+<?php defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -63,7 +60,7 @@ abstract class JHtmlArticles
 				{
 					$query->where('con.state = ' . (int) $config['filter.published']);
 				}
-				elseif (is_array($config['filter.state']))
+				elseif (is_array($config['filter.published']))
 				{
 					$config['filter.published'] = ArrayHelper::toInteger($config['filter.published']);
 					$query->where('con.state IN (' . implode(',', $config['filter.published']) . ')');

@@ -24,7 +24,7 @@ use Joomla\CMS\Language\Text;
 
 FormHelper::loadFieldClass('list');
 
-class JFormFieldListComponents extends JFormFieldList
+class JFormFieldListcomponents extends JFormFieldList
 {
 	/**
 	 * The form field type.
@@ -35,6 +35,7 @@ class JFormFieldListComponents extends JFormFieldList
 	 */
 	protected $type = 'listcomponents';
 
+
 	/**
 	 * Field options array.
 	 *
@@ -43,6 +44,7 @@ class JFormFieldListComponents extends JFormFieldList
 	 * @since  1.1.0
 	 */
 	protected $_options = null;
+
 
 	/**
 	 * Method to get the field options.
@@ -66,11 +68,10 @@ class JFormFieldListComponents extends JFormFieldList
 				->where($db->quoteName('e.type') . '=' . $db->quote('component'))
 				->where('e.enabled = 1');
 			$elements = $db->setQuery($query)->loadColumn();
-
 			$rootComponents = JPATH_ROOT;
-			$client = $this->getAttribute('client', 'site');
+			$client         = $this->getAttribute('client', 'site');
 
-			if($client === 'administrator')
+			if ($client === 'administrator')
 			{
 				$rootComponents = JPATH_ADMINISTRATOR;
 			}
@@ -126,45 +127,46 @@ class JFormFieldListComponents extends JFormFieldList
 					}
 				}
 
-				// Prepare options
-				$pluginConstant = 'LIB_FIELDS_FIELD_LIST_COMPONENTS';
-				$language       = Factory::getLanguage();
-				$language_tag   = $language->getTag();
-				$language->load('lib_fields', JPATH_SITE, $language_tag, true);
-				foreach ($components as $component => $views)
-				{
-					$componentValue    = $component;
-					$componentConstant = $pluginConstant . '_' . str_replace('com_', '', $component);
-					$componentText     = ($language->hasKey($componentConstant)) ? Text::_($componentConstant) :
-						ucfirst(str_replace('com_', '', $component));
+			}
 
-					// Add views
-					foreach ($views as $view => $layouts)
+			// Prepare options
+			$pluginConstant = 'LIB_FIELDS_FIELD_LIST_COMPONENTS';
+			$language       = Factory::getLanguage();
+			$language_tag   = $language->getTag();
+			$language->load('lib_fields', JPATH_SITE, $language_tag, true);
+			foreach ($components as $component => $views)
+			{
+				$componentValue    = $component;
+				$componentConstant = $pluginConstant . '_' . str_replace('com_', '', $component);
+				$componentText     = ($language->hasKey($componentConstant)) ? Text::_($componentConstant) :
+					ucfirst(str_replace('com_', '', $component));
+
+				// Add views
+				foreach ($views as $view => $layouts)
+				{
+					$viewValue    = $componentValue . '.' . $view;
+					$viewConstant = $componentConstant . '_' . $view;
+					$viewText     = $componentText . ': ';
+					$viewText     .= ($language->hasKey($viewConstant)) ? Text::_($viewConstant) : ucfirst($view);
+
+					$option        = new stdClass();
+					$option->value = $viewValue;
+					$option->text  = $viewText;
+					$options[]     = $option;
+
+					// Add layouts
+					foreach ($layouts as $layout)
 					{
-						$viewValue    = $componentValue . '.' . $view;
-						$viewConstant = $componentConstant . '_' . $view;
-						$viewText     = $componentText . ': ';
-						$viewText     .= ($language->hasKey($viewConstant)) ? Text::_($viewConstant) : ucfirst($view);
+						$layoutValue    = $viewValue . ':' . $layout;
+						$layoutConstant = $viewConstant . '_' . $layout;
+						$layoutText     = $viewText . ' (';
+						$layoutText     .= ($language->hasKey($layoutConstant)) ? Text::_($layoutConstant) : ucfirst($layout);
+						$layoutText     .= ')';
 
 						$option        = new stdClass();
-						$option->value = $viewValue;
-						$option->text  = $viewText;
+						$option->value = $layoutValue;
+						$option->text  = $layoutText;
 						$options[]     = $option;
-
-						// Add layouts
-						foreach ($layouts as $layout)
-						{
-							$layoutValue    = $viewValue . ':' . $layout;
-							$layoutConstant = $viewConstant . '_' . $layout;
-							$layoutText     = $viewText . ' (';
-							$layoutText     .= ($language->hasKey($layoutConstant)) ? Text::_($layoutConstant) : ucfirst($layout);
-							$layoutText     .= ')';
-
-							$option        = new stdClass();
-							$option->value = $layoutValue;
-							$option->text  = $layoutText;
-							$options[]     = $option;
-						}
 					}
 				}
 			}

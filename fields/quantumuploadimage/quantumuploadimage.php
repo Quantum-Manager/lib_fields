@@ -1,4 +1,4 @@
-<?php
+<?php defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
@@ -6,8 +6,6 @@ use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Uri\Uri;
-
-defined('JPATH_PLATFORM') or die;
 
 JLoader::register('JFormFieldQuantumupload', JPATH_ROOT . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, [
 	'administrator', 'components', 'com_quantummanager', 'fields', 'quantumupload.php'
