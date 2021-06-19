@@ -76,11 +76,15 @@ class JFormFieldLayouts extends JFormFieldList
 
 			if (!empty($target))
 			{
-				$this->addPath([
-					'type' => 'template',
-					'name' => $template,
-					'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts/' . $target
-				]);
+				$targets = explode(',', $target);
+				foreach ($targets as $target_c)
+				{
+					$this->addPath([
+						'type' => 'template',
+						'name' => $template,
+						'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts/' . $target_c
+					]);
+				}
 			}
 		}
 
