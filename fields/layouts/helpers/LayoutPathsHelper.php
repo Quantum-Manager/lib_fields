@@ -12,11 +12,21 @@ class LayoutPathsHelper
 	protected $cache_paths = [];
 
 
-	public function __construct($target = '', $other_paths = '')
+	public function __construct($target = '', $other_paths = '', $template = '')
 	{
 
-		$templates = Folder::folders(JPATH_ROOT . '/templates');
-		$result    = [];
+		if (empty($template))
+		{
+			$templates = Folder::folders(JPATH_ROOT . '/templates');
+		}
+		else
+		{
+			$templates = [
+				$template
+			];
+		}
+
+		$result = [];
 
 		if (empty($target))
 		{
