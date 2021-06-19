@@ -1,7 +1,6 @@
 <?php defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Form\FormHelper;
-use Joomla\CMS\Layout\FileLayout;
 use Joomla\Filesystem\Folder;
 
 FormHelper::loadFieldClass('list');
@@ -10,13 +9,25 @@ class JFormFieldLayouts extends JFormFieldList
 {
 
 
+	protected $paths = [];
+
+
+	protected $cache_paths = [];
+
+
 	public function getOptions()
 	{
-		$layout      = new FileLayout('');
-		$values      = $this->getAttribute('values', '');
-		$options     = [];
-		$paths       = $layout->getIncludePaths();
+		$this->setPaths();
+		$values  = $this->getAttribute('values', '');
+		$target  = $this->getAttribute('target', '');
+		$options = [];
+		$this->addPath([
+			'type' => 'joomla',
+			'path' => JPATH_ROOT . '/layouts'
+		]);
 		$files_exist = [];
+		$result      = [];
+		$templates   = Folder::folders(JPATH_ROOT . '/templates');
 
 		if (strpos($values, '::') !== false)
 		{
@@ -29,28 +40,60 @@ class JFormFieldLayouts extends JFormFieldList
 				if (class_exists($class) && method_exists($class, $method))
 				{
 					$result = forward_static_call([$class, $method]);
-
-					if (is_array($result))
-					{
-						$paths = array_merge($paths, $result);
-					}
-
 				}
 			}
 
 		}
 
-		foreach ($paths as $path)
+		foreach ($templates as $template)
 		{
-			if (file_exists($path))
+			$this->addPath([
+				'type' => 'template',
+				'name' => $template,
+				'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts'
+			]);
+
+			if (is_array($result))
 			{
-				$files = Folder::files($path);
+				foreach ($result as $value)
+				{
+					if (strpos($value, '{TEMPLATES}') !== false)
+					{
+						$this->addPath([
+							'type' => 'template',
+							'name' => $template,
+							'path' => str_replace('{TEMPLATES}', JPATH_ROOT . '/templates/' . $template, $value)
+						]);
+						continue;
+					}
+
+					$this->addPath([
+						'type' => 'joomla',
+						'path' => $value
+					]);
+				}
+			}
+
+			if (!empty($target))
+			{
+				$this->addPath([
+					'type' => 'template',
+					'name' => $template,
+					'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts/' . $target
+				]);
+			}
+		}
+
+		foreach ($this->getPaths() as $path)
+		{
+			if (file_exists($path['path']))
+			{
+				$files = Folder::files($path['path']);
 				foreach ($files as $file)
 				{
 					$split = explode('.', $file);
 					$ext   = array_pop($split);
 					$name  = implode('.', $split);
-
 
 					if ($ext !== 'php')
 					{
@@ -63,8 +106,8 @@ class JFormFieldLayouts extends JFormFieldList
 					}
 
 					$option        = new stdClass();
-					$option->value = $name;
-					$option->text  = $name;
+					$option->value = ($path['type'] === 'template') ? ($path['name'] . '::' . $name) : $name;
+					$option->text  = ($path['type'] === 'template') ? ($path['name'] . '::' . $name) : $name;
 					$options[]     = $option;
 				}
 			}
@@ -74,5 +117,30 @@ class JFormFieldLayouts extends JFormFieldList
 		return array_merge(parent::getOptions(), $options);
 	}
 
+
+	protected function setPaths($paths = [])
+	{
+		$this->paths = $paths;
+	}
+
+
+	protected function getPaths()
+	{
+		return $this->paths;
+	}
+
+
+	protected function addPath($path)
+	{
+		if (in_array($path['path'], $this->cache_paths))
+		{
+			return false;
+		}
+
+		$this->cache_paths[] = $path['path'];
+		$this->paths[]       = $path;
+
+		return true;
+	}
 
 }
