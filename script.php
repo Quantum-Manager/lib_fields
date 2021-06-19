@@ -19,9 +19,15 @@ class Lib_fieldsInstallerScript
 
 	protected function copyMedia($installer)
 	{
+		$dest      = JPATH_ROOT . '/media/lib_fields';
 		$path      = JPATH_LIBRARIES . '/lib_fields';
 		$folders   = Folder::folders($path);
 		$copyFiles = [];
+
+		if (!file_exists($dest))
+		{
+			Folder::create($dest);
+		}
 
 		foreach ($folders as $folder)
 		{
@@ -30,7 +36,7 @@ class Lib_fieldsInstallerScript
 			{
 				$copyFiles[] = [
 					'src'  => $path_current,
-					'dest' => JPATH_ROOT . '/media/lib_fields/' . $folder,
+					'dest' => $dest . '/' . $folder,
 					'type' => 'folder'
 				];
 			}
