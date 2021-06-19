@@ -4,6 +4,7 @@ use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\Path;
 
 FormHelper::loadFieldClass('list');
 
@@ -30,10 +31,13 @@ class JFormFieldLayouts extends JFormFieldList
 		$attr        .= $this->element['class'] ? ' class="' . (string) $this->element['class'] . '"' : '';
 
 		$this->setPaths();
-		$this->addPath([
-			'type' => 'joomla',
-			'path' => JPATH_ROOT . '/layouts'
-		]);
+		if (empty($target))
+		{
+			$this->addPath([
+				'type' => 'joomla',
+				'path' => JPATH_ROOT . '/layouts'
+			]);
+		}
 
 		if (strpos($values, '::') !== false)
 		{
@@ -53,11 +57,14 @@ class JFormFieldLayouts extends JFormFieldList
 
 		foreach ($templates as $template)
 		{
-			$this->addPath([
-				'type' => 'template',
-				'name' => $template,
-				'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts'
-			]);
+			if (empty($target))
+			{
+				$this->addPath([
+					'type' => 'template',
+					'name' => $template,
+					'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts'
+				]);
+			}
 
 			if (is_array($result))
 			{
@@ -85,10 +92,17 @@ class JFormFieldLayouts extends JFormFieldList
 				$targets = explode(',', $target);
 				foreach ($targets as $target_c)
 				{
+					$tmp = str_replace('.', '/', $target_c);
 					$this->addPath([
 						'type' => 'template',
 						'name' => $template,
-						'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts/' . $target_c
+						'path' => JPATH_ROOT . '/templates/' . $template . '/html/layouts/' . $tmp
+					]);
+
+					$this->addPath([
+						'type' => 'joomla',
+						'name' => $template,
+						'path' => JPATH_ROOT . '/layouts/' . $tmp
 					]);
 				}
 			}
@@ -187,6 +201,7 @@ class JFormFieldLayouts extends JFormFieldList
 			return false;
 		}
 
+		$path['path']        = Path::clean($path['path']);
 		$this->cache_paths[] = $path['path'];
 		$this->paths[]       = $path;
 
