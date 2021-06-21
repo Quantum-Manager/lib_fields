@@ -59,4 +59,5 @@
 .selectmenuitem-label-wrap .selectmenuitem-label label {
     margin-right: 5px;
     margin-bottom: 0;
+    max-width: max-content !important;
 }
