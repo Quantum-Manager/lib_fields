@@ -7,7 +7,7 @@
 Табличная сабформа с аккордеоном, куда можно вынести дополнительные поля.
 #### Требования
 В описании вложенной формы требуется сделать два fieldset. Первый с именем default, второй с именем more. <br/>
-Так же укажите шаблон subform.subformmore.
+Так же укажите шаблон subformmore.
 
 #### Атрибуты
 Атрибутов доступных нет.
@@ -21,7 +21,7 @@
     label="Мое название сабформы"
     description="Мое описание сабформы"
     multiple="true"
-    layout="subform.subformmore"
+    layout="subformmore"
     addfieldpath="libraries/lib_fields/subformmore"
 >
     <form>
