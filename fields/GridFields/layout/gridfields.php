@@ -7,10 +7,9 @@
  * @copyright	(C) 2021 //explorer-office.ru. All Rights Reserved.
  * @package		GridFields
  * @license		GPL   GNU General Public License version 2 or later;
- * @creationDate	2022-03-25
+ * @created		2022-03-25
  * @modifed		2022-04-10
  * @introduced		2022-04-10
- * @created		2022-04-10
  * @package     joomla fields
  * @subpackage  GridFields
  * @version  4
