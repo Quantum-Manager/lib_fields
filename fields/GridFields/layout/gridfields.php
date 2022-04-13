@@ -7,9 +7,10 @@
  * @copyright	(C) 2021 //explorer-office.ru. All Rights Reserved.
  * @package		GridFields
  * @license		GPL   GNU General Public License version 2 or later;
- * @created		2022-03-25
- * @modifed		2022-04-10
- * @introduced		2022-04-10
+ * @creationDate	2022-03-25
+ * @modifed		2022-04-13
+ * @introduced		2022-04-13
+ * @created
  * @package     joomla fields
  * @subpackage  GridFields
  * @version  4
@@ -152,9 +153,9 @@ foreach ($columns as $col){
     }
     if(in_array($col->type, ['new_del'])){
         $col->classHeader .= ' green text-center    w-10 -d-none d-md-table-cell   -d-flex align-items-center align-self-center justify-content-center align-items-center -row row-conformity row-centered'; 
-        $col->label = "<button type='button' class='btn btn-success  $col->class '  aria-label='".JText::_('JADD')."'  aria-hidden='true' title='".JText::_('JADD')."' "
-                . " onclick=\"tblRowNew(this,'.gridFields') \" "
-                . "><i class='bi bi-plus -icon-save-new {$fontIcon}plus-2 large-icon {$fontIcon} {$fontIcon}-lg fas {$fontIcon}-plus  {$fontIcon}-fw'></i></button>";  
+        $col->text = "<button type='button' class='btn btn-success  $col->class '  aria-label='".JText::_('JADD')."'  aria-hidden='true' title='".JText::_('JADD')."' "
+                . " onclick=\"tblRowNew(this,'.gridFields')\" "
+                . "><i class='bi bi-plus -icon-save-new {$fontIcon}plus-2 large-icon {$fontIcon} {$fontIcon}-lg fas {$fontIcon}-plus  {$fontIcon}-fw'></i></button>";
     }
     $style = $col->style || $col->styleHeader? " style='$col->style; $col->styleHeader' " : '';
 	
@@ -166,7 +167,7 @@ foreach ($columns as $col){
 	
     echo "<th class='head _$col->type $col->labelclass  $col->classHeader name_$col->fieldname' scope='col' "
             . " data-field='{$name}[{$col->name}][]' data-name='$col->name' id='{$name}[{$col->name}]'  "
-        . " title='$col->text $col->description' $description $style><strong  >$col->label</strong></th>";
+        . "title='$col->description'  $description $style><strong  >$col->text </strong></th>";
 }
 
 
