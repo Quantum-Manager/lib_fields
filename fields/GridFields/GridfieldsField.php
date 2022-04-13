@@ -9,8 +9,8 @@ defined('_JEXEC') or die;
  * @package		GridFields
  * @license		GPL   GNU General Public License version 2 or later;
  * @created		2022-03-25
- * @modifed		2022-04-10
- * @introduced		2022-04-10
+ * @modifed		2022-04-13
+ * @introduced		2022-04-13
  * @package     joomla fields
  * @subpackage  GridFields
  * @version  4
