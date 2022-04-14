@@ -48,7 +48,7 @@ use  Joomla\Database\Exception;
 //if(file_exists(__DIR__ . '/../functions.php'))
 //	require_once  __DIR__ . '/../functions.php';
  
-toPrint(1234,'1234',0,'pre',true);
+//toPrint(1234,'1234',0,'pre',true);
 //echo "<pre>";
 //print_r('Какрена', true);
 //echo "</pre>";
