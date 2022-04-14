@@ -1750,7 +1750,7 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 					$value = $column->translateDefault ? JText::_((string)$column->default) : (string)$column->default;
 					
 //toPrint($this->value[$column->fieldname][$key],' $value',0, $column->fieldname == 'select' );
-toPrint($column->translateDefault,' translateDefault',0, $column->fieldname == 'select' );
+//toPrint($column->translateDefault,' translateDefault',0, $column->fieldname == 'select' );
 				
 				 if(empty($value) && $column->format && isset($options[$key]))
 					 $value = JText::printf($column->format, ...get_object_vars($options[$key]));
