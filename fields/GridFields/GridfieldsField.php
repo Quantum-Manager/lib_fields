@@ -19,12 +19,6 @@ defined('_JEXEC') or die;
  */ 
 
 // Tasks:
-// 1: Fix selected radiobutton with drag line in table
-// 2: Добавить перевод для отдельный ячеек с атрибутом translateDefault для колонки
-// 5: Значения по умолчанию должны использоватся для динамических создаваемых строк при выводе.
-// 6: Рендерить колонку с включенным HIDDEN свойством., чтобы в TEMPLATE не было контейнера конрола
-
-// 4: Сделать поддержку значений пол умолчанию для колонки РАДИОКНОПКА без опций в формате {default: 0} и одновременно {default: [1,0,0,0]}
  
 use Joomla\CMS\Factory as JFactory;
 use Joomla\CMS\Document\Document as JDocument;
