@@ -504,7 +504,8 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         }
 		
 		if(is_string($this->default) && (static::isTrue($element['translateDefault']) || static::isTrue($element['translate_default'])
-				|| static::isTrue($element->default['translateDefault']) || static::isTrue($element->default['translate_default']))){
+				|| static::isTrue($element->default['translateDefault']) || static::isTrue($element->default['translate_default'])
+				|| static::isTrue($element->default['translate']))){
 			$this->default = JText::_($element->default);
 		}
         
