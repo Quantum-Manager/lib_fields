@@ -502,8 +502,14 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         if($element->value){
             $this->default = (string)$element->value;
         }
+		
+		if(is_string($this->default) && (static::isTrue($element['translateDefault']) || static::isTrue($element['translate_default'])
+				|| static::isTrue($element->default['translateDefault']) || static::isTrue($element->default['translate_default']))){
+			$this->default = JText::_($element->default);
+		}
         
-//toPrint($default,'$default',0,'pre');
+//toPrint($this->default,'$this->default',0,'message');
+//toPrint($element,'$element',0,'message');
 //toPrint($value,'$value',0,'pre');
 
 		// Set the field default value.
@@ -1297,7 +1303,7 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 //            $options[$opt[0]]= JHtml::_('select.option', $opt[0], "$opt[1]: $opt[2]");//JHtml ✔✔✔✓✔
 //        }
 //        
-//        //toPrint($ops,'$ops',0, true, true);    
+//toPrint($ops,'$ops',0, true, true);    
 //
 //	 
 //        $options = array_merge($options,parent::getOptions() );
@@ -1571,8 +1577,8 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 //                $column->description='';
 				$column->label = $column->translateLabel ? JText::_($column->getLabel()): $column->getLabel();
 //				array_walk($param , function($val,$prop,$column){ 
-////					toPrint($val,$prop);
-////					$column->__set($prop,$val);
+//					toPrint($val,$prop);
+//					$column->__set($prop,$val);
 //					$column->$prop = $val;
 //				},$column);
 				
@@ -1759,11 +1765,11 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 				
 				
 //if(ucwords($column->type)== 'Radio' && $column->countOptions === 0){ 
-////toPrint($field->default,'default.'.$key,0,'pre');
-////toPrint($field->value,'value.'.$key,0,'pre');
-////toPrint($value,'$value.'.$key,0,'pre');
-////toPrint($this->value[$column->fieldname][$key],'$value.'.$key,0,'pre');
-////toPrint(isset($this->value[$column->fieldname][$key]),'isset().'.$key,0,'pre');
+//toPrint($field->default,'default.'.$key,0,'pre');
+//toPrint($field->value,'value.'.$key,0,'pre');
+//toPrint($value,'$value.'.$key,0,'pre');
+//toPrint($this->value[$column->fieldname][$key],'$value.'.$key,0,'pre');
+//toPrint(isset($this->value[$column->fieldname][$key]),'isset().'.$key,0,'pre');
 //}
 //toPrint($value,'$value',0,'pre');
 //toPrint($key,'$key',0,'pre');
@@ -1795,9 +1801,9 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
                     ];
 				
 //				if(ucwords($column->type)== 'Radio' && $column->countOptions === false){// in_array($field->countOptions, [false, 1])   [2, 3,4,5,6,7]
-////toPrint($value,' $value:'.$key.' ',0,'pre'); //						checked
+//toPrint($value,' $value:'.$key.' ',0,'pre'); //						checked
 //					$column->countOptions = count($column->element->xpath('option'));
-////toPrint($column->countOptions,'$column->countOptions');
+//toPrint($column->countOptions,'$column->countOptions');
 //					if($column->countOptions === 0){
 //						$column->addOption("&#10004;",['value'=>$key, 'class'=>'btn btn-outline-success fw-bold']);//'class'=>'btn btn-outline-success      btn-check  fa fa-check' &#10003; &#10004;
 //						$column->value = $value;
@@ -2063,8 +2069,8 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 //            ];
         
 //toPrint($this,'$this',0,'pre');
-//        toPrint($this->value,'$this->value',0,'pre');
-//        toPrint($this->id,'$this->layout',0,'pre');
+//toPrint($this->value,'$this->value',0,'pre');
+//toPrint($this->id,'$this->layout',0,'pre');
 //        $html .= "funInput: - <br>Default: <b>$this->default</b>  <br> ID: <b>$this->id</b>  <br> Type: <b>$this->type</b> <br> Name: <b>$this->name</b> <br><br>";
 
         if(empty($this->layout))
@@ -2232,9 +2238,9 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         $layoutPath1 = realpath(__DIR__.'/../layouts/');  
         $layoutPath2 = realpath(__DIR__.'/layouts/');     
 		
-//        toPrint($data,'',0);
-//        toPrint($this->layout,'',0);//GridFields
-//        toPrint($layoutPath1,'',0);
+//toPrint($data,'',0);
+//toPrint($this->layout,'',0);//GridFields
+//toPrint($layoutPath1,'',0);
 		
 		 
         return $this->getRenderer(strtolower($this->layout))->addIncludePath($layoutPath1)->addIncludePath($layoutPath2)->render($data);  
