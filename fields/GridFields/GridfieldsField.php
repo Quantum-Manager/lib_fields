@@ -19,6 +19,7 @@ defined('_JEXEC') or die;
  */ 
 
 // Tasks:
+// 1: Fix selected radiobutton with drag line in table
  
 use Joomla\CMS\Factory as JFactory;
 use Joomla\CMS\Document\Document as JDocument;
@@ -342,6 +343,7 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         $this->hiddenLabel = true;
 		$this->hiddenDescription = true;
         
+//toPrint($this,'$this',0,'pre');
 //        JDocument::getInstance()->addScriptDeclaration("console.log('🚀 Captcha_type-$mod_id:')");
         
         parent::__construct($form);
@@ -934,7 +936,7 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 //toPrint($Element ,'$Element ',0,'pre');
         if($Element){
 			if(ucfirst($type) == 'Checkbox'){
-				$default = $Element['default'] ?? '';//Костыль для Checkbox
+				$default = (string)$Element['default'] ?? '';//Костыль для Checkbox
 				unset($Element['default']);
 				$value = $default;
 			}
@@ -2230,15 +2232,23 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 //toPrint($data['fields'],'$fields',0,'pre');
 //toPrint($data,'$caption',0,'message',true);
         
-        $layoutPath1 = realpath(__DIR__.'/../layouts/');  
-        $layoutPath2 = realpath(__DIR__.'/layouts/');     
+        $layoutPath1 = realpath(__DIR__.'/../layouts/');
+        $layoutPath2 = realpath(__DIR__.'/layouts/');
 		
 //toPrint($data,'',0);
 //toPrint($this->layout,'',0);//GridFields
 //toPrint($layoutPath1,'',0);
 		
+//toPrint($layoutPath1,'$layoutPath1',0,'message');
+//toPrint($layoutPath2,'$layoutPath2',0,'message');
+//toPrint($this->layout,'$this->layout',0,'message');
+		
+		$html = $this->getRenderer(strtolower($this->layout))->addIncludePath($layoutPath1)->addIncludePath($layoutPath2)->render($data);
+		
+		
+//toPrint(strlen($html),'Lenght',0,'message');
 		 
-        return $this->getRenderer(strtolower($this->layout))->addIncludePath($layoutPath1)->addIncludePath($layoutPath2)->render($data);  
+        return $html;  
         return parent::getInput();
 	}
     
