@@ -122,7 +122,7 @@ $count_rows = count($fields);
 //toPrint($columns,'$columns',0,'pre');
 //toPrint($data['columns'],'Fields',0,'pre');
 
-echo "<div class='table-responsive' $class $attr_desc $style $style>";
+echo "<div class='table-responsive' $class $attr_desc $style>";
 echo "<table id='{$id}_field' data-name='$name' "
 . " class='gridFields table -table-light table-responsive table-bordered table-striped table-hover table-sm  caption-top' xstyle='border: 1px solid gray; border-radius: 10px; min-width: 20px; min-height: 20px;'>";
         
