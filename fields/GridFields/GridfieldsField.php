@@ -421,19 +421,19 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         
         
         if($element->script){
-            $this->script .= (string)$element->script;
+            $this->script = (string)$element->script;
         }
 		
         $this->css = '';
 		
         if($element->style){
-            $this->style .= (string)$element->style;
+            $this->style = (string)$element->style;
         }
         if($element->css){
             $this->css = (string)$element->css;
         }
         if($element->defaultSql){
-            $this->defaultSql .= trim($element->defaultSql);
+            $this->defaultSql = trim($element->defaultSql);
         }
         if($element->sql){
             $this->sql = trim($element->sql);
@@ -1075,7 +1075,8 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 				$var === 'off'		|| $var === 'Off'	|| $var === 'OFF'	||
 				$var === 'disabled'	|| $var === 'Disabled'|| $var === 'DISABLED'||
 				$var === 'disable'	|| $var === 'Disable'|| $var === 'DISABLE'||
-				$var === 'none'		|| $var === 'None'	|| $var === 'NONE'
+				$var === 'none'		|| $var === 'None'	|| $var === 'NONE'||
+				$var === 'no'		|| $var === 'No'	|| $var === 'NO'
 				) == false;
 	}
 	
@@ -2257,7 +2258,4 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 	}
     
 }
-
-
-
 ?> 
