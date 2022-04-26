@@ -406,7 +406,7 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         
         $attributes = $attributesString = [
             'movable','creatable','removable', 'default', 'fontIcon',
-            'movableClass','creatableClass','removableClass','style','buttonClass','','','']; 
+            'movableClass','creatableClass','removableClass','style','buttonClass']; 
      
 		$children = [
 			'default', 'field', 'template', 'newLine', 'sql', 'caption', 'css','script' ];
@@ -416,26 +416,28 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         foreach($element->attributes() as $attr => $val){//$XMLElement
             $attr = static::attributeToHungarianNotation($attr);
             if(in_array($attr, $attributesString))
-                $this->$attr .= (string)$val;
+                $this->$attr = (string)$val;
         }
         
         
         if($element->script){
             $this->script .= (string)$element->script;
         }
+		
         $this->css = '';
+		
         if($element->style){
-            $this->css .= (string)$element->style;
+            $this->style .= (string)$element->style;
         }
         if($element->css){
-            $this->css .= (string)$element->css;
-        } 
+            $this->css = (string)$element->css;
+        }
         if($element->defaultSql){
             $this->defaultSql .= trim($element->defaultSql);
-        } 
+        }
         if($element->sql){
-            $this->sql .= trim($element->sql);
-        } 
+            $this->sql = trim($element->sql);
+        }
         
             
 //        foreach($element->attributes() as $attr => $val){//$XMLElement
@@ -644,9 +646,9 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 		
 		unset($data);
         
+		$dataColumn->class = $dataColumn->class && ucwords($dataColumn->type) == 'Radio' ? ' btn-group-sm ' : ''; 
         $dataColumn->class = $dataColumn->class ?: ' form-control-sm form-select-sm '; //classCell
-		$dataColumn->class .= ucwords($dataColumn->type) == 'Radio' ? ' btn-group-sm ' : ''; 
-		$dataColumn->type = $dataColumn->type ?: 'text';
+		$dataColumn->type  = $dataColumn->type ?: 'text';
         $dataColumn->position = $dataColumn->name == 'alias' ? ' data-placement="bottom" ' : ''; 
         $dataColumn->required = self::isTrue($dataColumn->required);
         $dataColumn->classes = explode(' ', $dataColumn->class);
@@ -1726,7 +1728,9 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 				$column->default = array_search(true, $this->value[$column->fieldname],false) ?? '';
 //toPrint($this->value[$column->fieldname],'$column->default:'.$column->default,0,'pre');
 			}
-            if(ucwords($column->type)== 'Checkbox' &&  empty($column->value) && empty($column->default))
+            if(ucwords($column->type)== 'Checkbox' 
+					&& empty($column->value) 
+					&& empty($column->default))
 				$column->default = false;//$this->value[$column->fieldname]; //empty($value) && empty($column->value) && empty($column->default)
 			
 //toPrint( ($this->value[$column->fieldname]), '  $this->value[$column->fieldname] ',0,$column->type=='Checkbox');
