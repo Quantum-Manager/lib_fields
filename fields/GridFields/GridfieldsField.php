@@ -650,10 +650,10 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
         
 		$dataColumn->class = empty($dataColumn->class) && ucwords($dataColumn->type) == 'Radio' ? ' btn-group-sm ' : $dataColumn->class; 
         $dataColumn->class = $dataColumn->class ?: ' form-control-sm form-select-sm '; //classCell
+		$dataColumn->type  = $dataColumn->type ?: 'text';
 //toPrint(strlen($dataColumn->class),' $dataColumn->class '.$this->name);
 //toPrint( $dataColumn->class,' $dataColumn->class '.$this->name);
 //toPrint( $dataColumn->class,' $dataColumn->class '.$this->name);
-		$dataColumn->type  = $dataColumn->type ?: 'text';
         $dataColumn->position = $dataColumn->name == 'alias' ? ' data-placement="bottom" ' : ''; 
         $dataColumn->required = self::isTrue($dataColumn->required);
         $dataColumn->classes = explode(' ', $dataColumn->class);
@@ -1720,7 +1720,8 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 		}
         
         $keys_rows = array_unique($keys_rows);
-        sort($keys_rows);
+//        sort($keys_rows);
+//toPrint($keys_rows,'$value  ',0,'pre',true);
 
 
 //toPrint(array_keys($this->columns),'array_keys($this->columns]',0,'pre'); 
@@ -2186,8 +2187,8 @@ class GridFieldsField extends JFormFieldSql  {//JFormField  //JFormFieldList //J
 			
             foreach ($row as $field) {
                 
-				if(isset($data['columns'][$field->fieldname]))
-					$field->class = $data['columns'][$field->fieldname]->class;
+//				if(isset($data['columns'][$field->fieldname]))
+//					$field->class = $data['columns'][$field->fieldname]->class;
 				
 //toPrint($data['columns'][$field->fieldname],'$field->id',0,$field->fieldname == 'idField');
 //                $field->id = $field->id.'_'.$i.'_x';
