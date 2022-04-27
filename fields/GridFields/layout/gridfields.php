@@ -352,12 +352,19 @@ if($script)
 if($css)
     echo "<style type='text/css'>$css</style>";
 
-static $script;
+static $run;
 
-if($script)
+if($run)
     return;
 
-$script = true; 
+$run = true;
+
+//JFactory::getApplication()->getDocument()->
+//JFactory::getApplication()->getDocument()->addScriptDeclaration($iconClass);
+//JFactory::getApplication()->getDocument()->addStyleDeclaration($iconClass);
+//$script = <<< SCR
+//SCR;
+
 
 ?>
 <script type='text/javascript'>
@@ -365,13 +372,11 @@ $script = true;
 
 //Обновление индексдов для таблиц с классом
 function upInd(table){
-	
 		let tables = document.getElementsByClassName(table);
 		for(let tbl of tables){
 			updateIndexis(tbl);
 			console.log(tbl);
 		}
-			
 }
 
 function updateIndexis(table){
@@ -565,7 +570,7 @@ window.onload = function(){initGridFields();};
     }
     .gridFields th.new_del button{ 
         width: 100%; 
-		font-size: 1rem;
+		/*font-size: 1rem;*/
     }
     .gridFields .control-group{ 
         margin: 0;
@@ -615,13 +620,9 @@ window.onload = function(){initGridFields();};
         position: relative;
 		overflow-y: hidden;
     }
-    .gridFields th.move i{ 
-        position: absolute;
-		opacity: 0.3;
-    }
     .gridFields th i{ /*.move*/
         /*content: "::";*/
-        display: block;
+		display: inline-block;
         /*height: 20px;*/
         /*position: absolute;*/
         /*bottom: 2px;*/    
@@ -629,6 +630,11 @@ window.onload = function(){initGridFields();};
         right: 0;
         width: auto;
         margin: auto;
+    }
+    .gridFields th.move i{ 
+        position: absolute;
+        display: block;
+		opacity: 0.3;
     }
     .gridFields th.move:hover{
         background-color: #8888;
