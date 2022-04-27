@@ -564,6 +564,7 @@ window.onload = function(){initGridFields();};
     .gridFields thead th{
         /*position: sticky;*/
         /*top: 0;*/
+	vertical-align: middle;
     }
     .gridFields th.name_new_del {
         width: 1%;
