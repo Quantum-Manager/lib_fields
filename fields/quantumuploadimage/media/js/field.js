@@ -1,17 +1,83 @@
+let isJoomla4 = false;
+let quantumuploadimageSelector = null;
+let quantumuploadimageModal = null;
+
 window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
     let input = document.querySelector('#' + fieldid),
         wrap = input.closest('.quantumuploadimage-field');
-    if(value.slice(0, 1) === '/') {
+    if (value.slice(0, 1) === '/') {
         value = value.slice(1);
     }
     input.value = value;
     updateImage(wrap, value);
 };
 
+window.QuantumuploadimageModalOpen = function () {
+    let input = quantumuploadimageSelector.querySelector('input');
+    let url = QuantumUtils.getFullUrl('index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
+
+    if (input.value !== '') {
+        let paths = input.value.split('/');
+        paths.pop();
+        url += '&folder=' + paths.join('/').replace('images/', '');
+    }
+
+    if (!isJoomla4) {
+
+        SqueezeBox.open(url, {
+            handler: 'iframe',
+            size: {x: 1450, y: 700},
+            classWindow: 'quantummanager-modal-sbox-window'
+        });
+
+    } else {
+
+        quantumuploadimageModal = quantumuploadimageSelector.querySelector('.joomla-modal');
+
+        if (quantumuploadimageModal && window.bootstrap && window.bootstrap.Modal && !window.bootstrap.Modal.getInstance(quantumuploadimageModal)) {
+            return;
+        }
+
+        quantumuploadimageModal.setAttribute('data-url', url);
+        quantumuploadimageModal.setAttribute('data-iframe',
+            quantumuploadimageModal.getAttribute('data-iframe').replace(/src=[\'\"].*?[\'\"]/g, 'src="' + url + '"')
+        );
+
+        Joomla.initialiseModal(quantumuploadimageModal, {
+            isJoomla: true
+        });
+
+        quantumuploadimageModal.open();
+
+    }
+}
+
+window.QuantumuploadimageModalClose = function () {
+    if (!isJoomla4) {
+        if (window.jModalClose !== undefined) {
+            window.jModalClose();
+        }
+
+        window.jQuery('.modal.in').modal('hide');
+    } else {
+
+        if (quantumuploadimageModal && window.bootstrap && window.bootstrap.Modal && !window.bootstrap.Modal.getInstance(quantumuploadimageModal)) {
+            return;
+        }
+
+        let close = quantumuploadimageModal.querySelector('[data-bs-dismiss]');
+        if (close !== null && close !== undefined) {
+            close.click();
+        }
+
+
+    }
+
+}
 
 function updateImage(wrap, image) {
     let preview = wrap.querySelector('.quantumuploadimage-preview');
-    if(image !== '') {
+    if (image !== '') {
         preview.classList.add('quantumuploadimage-preview-active');
         preview.innerHTML = '<img src="' + QuantumSettings.urlBase + '/' + image + '" />';
     } else {
@@ -24,21 +90,25 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 
+document.addEventListener('subform-row-add', function (event) {
+    initQuantumuploadimage(event.target);
+});
+
 //support subform add row
-if(window.jQuery !== undefined) {
-    jQuery(document).on('subform-row-add', function(event, row) {
+if (window.jQuery !== undefined) {
+    jQuery(document).on('subform-row-add', function (event, row) {
         initQuantumuploadimage(row);
     });
 }
 
 function initQuantumuploadimage(container) {
 
-    if(container === null || container === undefined) {
+    if (container === null || container === undefined) {
         container = document;
     }
 
-    let quantumuploadimageAll = container.querySelectorAll('.quantumuploadimage-field');
-    for(let i=0;i<quantumuploadimageAll.length;i++) {
+    let quantumuploadimageAll = container.querySelectorAll('.quantumuploadimage-field.quantummanager');
+    for (let i = 0; i < quantumuploadimageAll.length; i++) {
 
         let wait_quantum = setInterval(function () {
 
@@ -83,17 +153,17 @@ function initQuantumuploadimage(container) {
             }
 
             buttonChange.addEventListener('click', function (ev) {
-                let url = QuantumUtils.getFullUrl('/administrator/index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
-                if (input.value !== '') {
-                    let paths = input.value.split('/');
-                    paths.pop();
-                    url += '&folder=' + paths.join('/').replace('images/', '');
+                let isJoomla4Attr = this.getAttribute('data-is-joomla4');
+
+                if (isJoomla4Attr === '1') {
+                    isJoomla4 = true;
+                } else {
+                    isJoomla4 = false;
                 }
-                SqueezeBox.open(url, {
-                    handler: 'iframe',
-                    size: {x: 1450, y: 700},
-                    classWindow: 'quantummanager-modal-sbox-window'
-                });
+
+                quantumuploadimageSelector = this.closest('.quantumuploadimage-field-toolbar');
+                window.QuantumuploadimageModalOpen();
+
                 ev.preventDefault();
             });
 

@@ -1,15 +1,10 @@
 <?php defined('JPATH_PLATFORM') or die;
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Form\Form;
-use Joomla\CMS\Form\FormHelper;
-use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Layout\FileLayout;
-use Joomla\CMS\Uri\Uri;
 
 JLoader::register('JFormFieldQuantumupload', JPATH_ROOT . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, [
-	'administrator', 'components', 'com_quantummanager', 'fields', 'quantumupload.php'
-]));
+		'administrator', 'components', 'com_quantummanager', 'fields', 'quantumupload.php'
+	]));
 
 /**
  * Form Field class for the Joomla Platform.
@@ -25,23 +20,31 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 	 */
 	public $type = 'QuantumUploadImage';
 
+
+	public $render = '';
+
 	/**
 	 * @return array
 	 */
 	protected function getLayoutData()
 	{
-		$layout = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
+		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
 		$parentData = parent::getLayoutData();
 
-		$parentData['cssClass'] .= ' quantumuploadimage-field';
-		if(isset($this->dropAreaHidden) && (int)$this->dropAreaHidden)
+		if (isset($this->dropAreaHidden) && (int) $this->dropAreaHidden)
 		{
 			$parentData['cssClass'] .= ' quantumuploadimage-field-preview-hidden';
 		}
 
-		$other = $layout->render(array_merge($parentData, [
-                'copy' => $this->copy
+		if (empty($this->render))
+		{
+			$this->render = $layout->render(array_merge($parentData, [
+				'copy' => $this->copy
 			]));
+		}
+
+		$other                  = $this->render;
+		$parentData['cssClass'] .= ' quantumuploadimage-field';
 
 		return array_merge($parentData,
 			[
@@ -57,16 +60,16 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 			$this->__set('dropAreaHidden', $this->getAttribute('dropAreaHidden', true));
 			$this->__set('copy', $this->getAttribute('copy', true));
 
-			if($this->copy)
-            {
-                JLoader::register('QuantummanagerLibs', JPATH_SITE . '/administrator/components/com_quantummanager/helpers/quantumlibs.php');
+			if ($this->copy)
+			{
+				JLoader::register('QuantummanagerLibs', JPATH_SITE . '/administrator/components/com_quantummanager/helpers/quantumlibs.php');
 
-                QuantummanagerLibs::includes([
-                    'utils',
-                    'notify',
-                    'clipboard'
-                ]);
-            }
+				QuantummanagerLibs::includes([
+					'utils',
+					'notify',
+					'clipboard'
+				]);
+			}
 
 			return parent::getInput();
 		}
