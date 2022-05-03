@@ -20,7 +20,7 @@ class Lib_fieldsInstallerScript
 	protected function copyMedia($installer)
 	{
 		$dest      = JPATH_ROOT . '/media/lib_fields';
-		$path      = JPATH_LIBRARIES . '/lib_fields/fields';
+		$path      = JPATH_ROOT . '/libraries/lib_fields/fields';
 		$folders   = Folder::folders($path);
 		$copyFiles = [];
 
