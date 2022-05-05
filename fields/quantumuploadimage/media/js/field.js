@@ -33,10 +33,11 @@ window.QuantumuploadimageModalOpen = function () {
     } else {
 
         quantumuploadimageModal = quantumuploadimageSelector.querySelector('.joomla-modal');
+        // TODO разобраться с модалки до лучших времен
 
-        if (quantumuploadimageModal && window.bootstrap && window.bootstrap.Modal && !window.bootstrap.Modal.getInstance(quantumuploadimageModal)) {
+        /*if (quantumuploadimageModal && window.bootstrap && window.bootstrap.Modal && !window.bootstrap.Modal.getInstance(quantumuploadimageModal)) {
             return;
-        }
+        }*/
 
         quantumuploadimageModal.setAttribute('data-url', url);
         quantumuploadimageModal.setAttribute('data-iframe',
@@ -108,6 +109,7 @@ function initQuantumuploadimage(container) {
     }
 
     let quantumuploadimageAll = container.querySelectorAll('.quantumuploadimage-field.quantummanager');
+
     for (let i = 0; i < quantumuploadimageAll.length; i++) {
 
         let wait_quantum = setInterval(function () {

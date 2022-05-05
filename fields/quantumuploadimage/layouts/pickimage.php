@@ -27,20 +27,26 @@ else
 		'relative' => true
 	]);
 
-	$modalHTML = HTMLHelper::_(
-		'bootstrap.renderModal',
-		'imageModalQuantumuploadimage_' . $displayData['id'],
-		[
-			'url'         => 'index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage&fieldid=' . $displayData['id'],
-			'title'       => Text::_('JLIB_FORM_CHANGE_IMAGE'),
-			'closeButton' => true,
-			'height'      => '100%',
-			'width'       => '100%',
-			'modalWidth'  => '80',
-			'bodyHeight'  => '80',
-			'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . Text::_('JCANCEL') . '</button>',
-		]
-	);
+	try
+	{
+		$modalHTML = HTMLHelper::_(
+			'bootstrap.renderModal',
+			'imageModalQuantumuploadimage_' . random_int(111111, 999999),
+			[
+				'url'         => 'index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage&fieldid=' . $displayData['id'],
+				'title'       => Text::_('JLIB_FORM_CHANGE_IMAGE'),
+				'closeButton' => true,
+				'height'      => '100%',
+				'width'       => '100%',
+				'modalWidth'  => '80',
+				'bodyHeight'  => '80',
+				'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . Text::_('JCANCEL') . '</button>',
+			]
+		);
+	}
+	catch (Exception $e)
+	{
+	}
 
 }
 
