@@ -13,6 +13,7 @@
 
 .quantumuploadimage-field .quantumupload-module .drop-area {
     height: 100%;
+    padding: 0;
     background: #fbfbfb;
 }
 
