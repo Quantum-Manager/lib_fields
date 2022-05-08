@@ -93,8 +93,8 @@ $quantumOptions = [
                class="quantumuploadimage-input <?php if ($is_joomla4) : ?>form-control<?php endif; ?>">
         <div class="quantumuploadimage-group-buttons">
 			<?php if (isset($displayData['dropAreaHidden']) && (int) $displayData['dropAreaHidden']) : ?>
-                <button class="btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button><?php endif; ?>
-            <button class="btn qm-btn qm-btn-primary quantumuploadimage-change"
+                <button class="qm-btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button><?php endif; ?>
+            <button class="qm-btn qm-btn-primary quantumuploadimage-change"
                     aria-hidden="true"
                     data-source-href="/administrator/index.php?<?php echo http_build_query($quantumOptions) ?>"
                     data-is-joomla4="<?php echo $is_joomla4 ? '1' : '0' ?>"
