@@ -1,6 +1,7 @@
 <?php defined('_JEXEC') or die;
 
 use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\Path;
 
 /**
  * Class Lib_fieldsInstallerScript
@@ -11,7 +12,16 @@ class Lib_fieldsInstallerScript
 
 	public function postflight($type, $parent)
 	{
-		$this->copyMedia($parent->getParent());
+
+		if ($type === 'install' || $type === 'update')
+		{
+			$this->copyMedia($parent->getParent());
+		}
+
+		if ($type === 'uninstall')
+		{
+			$this->deleteMedia();
+		}
 
 		return true;
 	}
@@ -19,9 +29,10 @@ class Lib_fieldsInstallerScript
 
 	protected function copyMedia($installer)
 	{
-		$dest      = JPATH_ROOT . '/media/lib_fields';
-		$path      = JPATH_ROOT . '/libraries/lib_fields/fields';
-		$folders   = Folder::folders($path);
+		$dest    = JPATH_ROOT . '/media/lib_fields';
+		$path    = Path::clean(JPATH_ROOT . '/libraries/lib_fields/fields');
+		$folders = Folder::folders($path);
+
 		$copyFiles = [];
 
 		if (!file_exists($dest))
@@ -45,4 +56,23 @@ class Lib_fieldsInstallerScript
 		return $installer->copyFiles($copyFiles, true);
 	}
 
+
+	protected function deleteMedia()
+	{
+		$dest = JPATH_ROOT . '/media/lib_fields';
+
+		if (file_exists($dest))
+		{
+			try
+			{
+				return Folder::delete($dest);
+			}
+			catch (Exception $e)
+			{
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

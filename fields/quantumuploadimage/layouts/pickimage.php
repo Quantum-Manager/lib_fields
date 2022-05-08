@@ -5,9 +5,11 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 
 JLoader::register('QuantummanagerHelper', JPATH_ROOT . '/components/com_quantummanager/helpers/quantummanager.php');
+JLoader::register('QuantummanagerLibs', JPATH_ROOT . '/components/com_quantummanager/helpers/quantumlibs.php');
 
 extract($displayData);
 
+QuantummanagerLibs::theme();
 $is_joomla4 = QuantummanagerHelper::isJoomla4();
 $modalHTML  = '';
 
