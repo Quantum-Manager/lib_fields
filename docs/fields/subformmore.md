@@ -27,6 +27,8 @@
     <form>
         <fieldset name="default">
         </fieldset>
+        <fieldset name="more">
+        </fieldset>
     </form>
 </field>
 ```
