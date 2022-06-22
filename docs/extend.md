@@ -32,6 +32,10 @@
 
 use Joomla\CMS\Form\FormHelper;
 
+\Joomla\CMS\Form\FormHelper\FormHelper::addFieldPath(
+    JPATH_ROOT . '/libraries/lib_fields/fields/listarticles' 
+);
+
 FormHelper::loadFieldClass('listarticles');
 
 class JFormFieldMyListarticles extends JFormFieldListarticles
