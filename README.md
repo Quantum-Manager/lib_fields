@@ -1,5 +1,18 @@
 # Библиотека полей для Joomla!
 
+### Description on English
+Lib Fields is a common library which is used in some extensions developed by Russian Joomla community and stored at hika.su site at the moment.
+If you're using Quantum Manager, it requires Lib Fields library to be installed.<br/>
+
+Quantum Manager is a common product of Delo design and NorrNext.<br/>
+hika.su is a website that belongs to Delo Design. <br/>
+
+norrnext.com - extensions provider.<br/>
+delo-design.ru - enterprise solutions for Joomla!<br/>
+hika.su - product pages in Russian. (a Delo-design project)<br/>
+jpath.ru - Joomla documentation in Russian
+
+So, when you see a refer to hika.su in your update manager - do not worry!
 
 ### Зачем?
 Иногда нужно в JForm создавать раз за разом типовые поля, поэтому имеет смысл объединить в библиотеку. Коллекция полей больше подходят для административной части Joomla!
