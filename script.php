@@ -3,6 +3,11 @@
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;
 
+if(class_exists('Lib_fieldsInstallerScript'))
+{
+	return;
+}
+
 /**
  * Class Lib_fieldsInstallerScript
  */
