@@ -17,6 +17,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Version;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Form\FormHelper;
@@ -79,11 +80,15 @@ class JFormFieldListcomponents extends JFormFieldList
 			$components = array();
 			foreach ($elements as $component)
 			{
-				$folder = Path::clean($rootComponents . '/components/' . $component . '/views');
-				if (Folder::exists($folder))
+				$folder = $this->checkFolder($component,$rootComponents);
+				if ($folder !== false && Folder::exists($folder))
 				{
 					foreach (Folder::folders($folder) as $view)
 					{
+						if (dirname($folder,1) === 'tmpl' && $this->checkEditOption($folder, $view) === false) {
+							continue;
+						} 
+
 						if (!isset($views[$component]))
 						{
 							$views[$component] = array();
@@ -175,5 +180,48 @@ class JFormFieldListcomponents extends JFormFieldList
 		}
 
 		return $this->_options;
+	}
+	
+	/**
+	 * Check if relevant folder exists with different paths for J3 and J4
+	 * 
+	 * @param string $component
+	 * @param string $rootComponents
+	 * 
+	 * @return string|bool
+	 */
+	private static function checkFolder(string $component, string $rootComponents = JPATH_ROOT) {
+		$jversion = new Version();
+		$folder = Path::clean($rootComponents . '/components/' . $component . '/views');
+		if (Folder::exists($folder))
+		{
+			return $folder;
+		} 
+		elseif(version_compare($jversion->getShortVersion(), '4.0', '>=')) 
+		{
+			$folder = Path::clean($rootComponents . '/components/' . $component . '/tmpl');
+			if (Folder::exists($folder))
+			{
+				return $folder;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Check if there is an edit option in views for J4
+	 * 
+	 * @param string $folder
+	 * @param string $view
+	 * 
+	 * @return bool
+	 */
+	private static function checkEditOption(string $folder, string $view) {
+		$editFile = $folder . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR . 'edit.php';
+		if (File::exists($editFile)) {
+			return true;
+		}
+		return false;
+
 	}
 }
