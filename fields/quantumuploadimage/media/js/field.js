@@ -185,7 +185,7 @@ function initQuantumuploadimage(container) {
                 }
 
                 let pathFile = fm.data.path + '/' + fm.Qantumupload.filesLists[0];
-                QuantumUtils.ajaxGet(QuantumUtils.getFullUrl("/administrator/index.php?option=com_quantummanager&task=quantumviewfiles.getParsePath&path=" + encodeURIComponent(pathFile) +
+                QuantumUtils.ajaxGet(QuantumUtils.getFullUrl("index.php?option=com_quantummanager&task=quantumviewfiles.getParsePath&path=" + encodeURIComponent(pathFile) +
                     '&scope=' + fm.data.scope +
                     '&v=' + QuantumUtils.randomInteger(111111, 999999))).done(function (response) {
                     response = JSON.parse(response);
