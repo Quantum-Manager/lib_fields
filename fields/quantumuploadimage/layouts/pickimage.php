@@ -12,6 +12,7 @@ extract($displayData);
 QuantummanagerLibs::theme();
 $is_joomla4 = QuantummanagerHelper::isJoomla4();
 $modalHTML  = '';
+$modal_id = 'imageModalQuantumuploadimage_' . random_int(111111, 999999);
 
 if (!$is_joomla4)
 {
@@ -33,9 +34,9 @@ else
 	{
 		$modalHTML = HTMLHelper::_(
 			'bootstrap.renderModal',
-			'imageModalQuantumuploadimage_' . random_int(111111, 999999),
+			$modal_id,
 			[
-				'url'         => 'index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage&fieldid=' . $displayData['id'],
+				'url'         => 'index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage',
 				'title'       => Text::_('JLIB_FORM_CHANGE_IMAGE'),
 				'closeButton' => true,
 				'height'      => '100%',
@@ -98,7 +99,8 @@ $quantumOptions = [
                     aria-hidden="true"
                     data-source-href="/administrator/index.php?<?php echo http_build_query($quantumOptions) ?>"
                     data-is-joomla4="<?php echo $is_joomla4 ? '1' : '0' ?>"
-                    rel="{handler: 'iframe', size: {x: 1450, y: 700}, classWindow: 'quantummanager-modal-sbox-window'}"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_SELECT') ?></button>
+                    data-modal-id="<?php echo $modal_id; ?>"
+            ><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_SELECT') ?></button>
 			<?php if ((int) $displayData['copy']) : ?>
                 <button class="qm-btn quantumuploadimage-copy only-icon" aria-hidden="true"><span
                             class="icon-copy"></span></button><?php endif; ?>
