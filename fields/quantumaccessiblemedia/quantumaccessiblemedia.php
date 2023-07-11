@@ -1,4 +1,4 @@
-<?php
+<?php defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Form\Field\AccessiblemediaField;
 
