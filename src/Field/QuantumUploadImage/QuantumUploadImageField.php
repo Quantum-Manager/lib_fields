@@ -1,10 +1,10 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\QuantumUploadImage;
+
+defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Layout\FileLayout;
-
-JLoader::register('JFormFieldQuantumupload', JPATH_ROOT . DIRECTORY_SEPARATOR . implode(DIRECTORY_SEPARATOR, [
-		'administrator', 'components', 'com_quantummanager', 'fields', 'quantumupload.php'
-	]));
+use Joomla\Component\QuantumManager\Administrator\Field\QuantumuploadField;
+use Joomla\Component\QuantumManager\Administrator\Helper\QuantummanagerLibsHelper;
 
 /**
  * Form Field class for the Joomla Platform.
@@ -12,7 +12,7 @@ JLoader::register('JFormFieldQuantumupload', JPATH_ROOT . DIRECTORY_SEPARATOR . 
  *
  * @since  1.6
  */
-class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
+class QuantumUploadImageField extends QuantumuploadField
 {
 
 	/**
@@ -28,7 +28,7 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 	 */
 	protected function getLayoutData()
 	{
-		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
+		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR);
 		$parentData = parent::getLayoutData();
 
 		if (isset($this->dropAreaHidden) && (int) $this->dropAreaHidden)
@@ -62,9 +62,7 @@ class JFormFieldQuantumuploadimage extends JFormFieldQuantumupload
 
 			if ($this->copy)
 			{
-				JLoader::register('QuantummanagerLibs', JPATH_SITE . '/administrator/components/com_quantummanager/helpers/quantumlibs.php');
-
-				QuantummanagerLibs::includes([
+				QuantummanagerLibsHelper::includes([
 					'utils',
 					'notify',
 					'clipboard'

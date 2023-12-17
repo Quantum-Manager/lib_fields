@@ -1,9 +1,10 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\ListArticles;
 
+defined('JPATH_PLATFORM') or die;
+
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
-
-FormHelper::loadFieldClass('list');
 
 /**
  * Form Field class for the Joomla Platform.
@@ -11,7 +12,7 @@ FormHelper::loadFieldClass('list');
  *
  * @since  1.6
  */
-class JFormFieldListarticles extends JFormFieldList
+class ListArticlesField extends ListField
 {
 	/**
 	 * The form field type.

@@ -1,10 +1,12 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\SelectMenuItem;
+
+defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 
-class JFormFieldSelectmenuitem extends FormField
+class SelectMenuItemField extends FormField
 {
 
 	protected $name = 'selectmenuitem';

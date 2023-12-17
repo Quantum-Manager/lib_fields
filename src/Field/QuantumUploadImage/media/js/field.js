@@ -1,4 +1,3 @@
-let isJoomla4 = false;
 let quantumuploadimageSelector = null;
 let quantumuploadimageModalID = null;
 let quantumuploadimageModal = null;
@@ -23,60 +22,38 @@ window.QuantumuploadimageModalOpen = function () {
         url += '&folder=' + paths.join('/').replace('images/', '');
     }
 
-    if (!isJoomla4) {
+    let modal = document.querySelector('#' + quantumuploadimageModalID);
 
-        SqueezeBox.open(url, {
-            handler: 'iframe',
-            size: {x: 1450, y: 700},
-            classWindow: 'quantummanager-modal-sbox-window'
-        });
-
-    } else {
-
-        let modal = document.querySelector('#' + quantumuploadimageModalID);
-
-        if (!modal) {
-            return;
-        }
-
-        window.quantumuploadimageModal = modal;
-        window.quantumuploadimageModal.setAttribute('data-url', url);
-        window.quantumuploadimageModal.setAttribute('data-iframe',
-            window.quantumuploadimageModal.getAttribute('data-iframe').replace(/src=[\'\"].*?[\'\"]/g, 'src="' + url + '"')
-        );
-
-        Joomla.initialiseModal(modal, {isJoomla: true});
-
-        modal.addEventListener('shown.bs.modal', (event) => {
-            Joomla.Modal.setCurrent(event.target);
-        });
-
-        let currentModal = Joomla.Modal.getCurrent();
-        if (currentModal) {
-            currentModal.close();
-        }
-
-        document.getElementById(quantumuploadimageModalID).open();
-
+    if (!modal) {
+        return;
     }
+
+    window.quantumuploadimageModal = modal;
+    window.quantumuploadimageModal.setAttribute('data-url', url);
+    window.quantumuploadimageModal.setAttribute('data-iframe',
+        window.quantumuploadimageModal.getAttribute('data-iframe').replace(/src=[\'\"].*?[\'\"]/g, 'src="' + url + '"')
+    );
+
+    Joomla.initialiseModal(modal, {isJoomla: true});
+
+    modal.addEventListener('shown.bs.modal', (event) => {
+        Joomla.Modal.setCurrent(event.target);
+    });
+
+    let currentModal = Joomla.Modal.getCurrent();
+    if (currentModal) {
+        currentModal.close();
+    }
+
+    document.getElementById(quantumuploadimageModalID).open();
+
 }
 
 window.QuantumuploadimageModalClose = function () {
-    if (!isJoomla4) {
-        if (window.jModalClose !== undefined) {
-            window.jModalClose();
-        }
-
-        window.jQuery('.modal.in').modal('hide');
-    } else {
-
-        let currentModal = Joomla.Modal.getCurrent();
-        if (currentModal) {
-            currentModal.close();
-        }
-
+    let currentModal = Joomla.Modal.getCurrent();
+    if (currentModal) {
+        currentModal.close();
     }
-
 }
 
 function updateImage(wrap, image) {
@@ -164,14 +141,6 @@ function initQuantumuploadimage(container) {
             }
 
             buttonChange.addEventListener('click', function (ev) {
-                let isJoomla4Attr = this.getAttribute('data-is-joomla4');
-
-                if (isJoomla4Attr === '1') {
-                    isJoomla4 = true;
-                } else {
-                    isJoomla4 = false;
-                }
-
                 quantumuploadimageSelector = this.closest('.quantumuploadimage-field-toolbar');
                 quantumuploadimageModalID = this.getAttribute('data-modal-id');
 

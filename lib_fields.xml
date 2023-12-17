@@ -10,6 +10,7 @@
     <license>GPL v3</license>
     <version>2.0.3</version>
     <description>Library fields</description>
+    <namespace path="src">JPATHRU\Libraries\Fields</namespace>
 
     <scriptfile>script.php</scriptfile>
 

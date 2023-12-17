@@ -1,4 +1,5 @@
-<?php
+<?php namespace JPATHRU\Libraries\Fields\Field\ListComponents;
+
 /**
  * @package     Joomla! fields library
  * @subpackage  Components list field
@@ -16,16 +17,15 @@
 
 defined('_JEXEC') or die;
 
+use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Version;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\Path;
-use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\Language\Text;
 
-FormHelper::loadFieldClass('list');
-
-class JFormFieldListcomponents extends JFormFieldList
+class ListComponentsField extends ListField
 {
 	/**
 	 * The form field type.

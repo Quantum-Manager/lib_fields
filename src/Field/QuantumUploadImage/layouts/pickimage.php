@@ -3,56 +3,39 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-
-JLoader::register('QuantummanagerHelper', JPATH_ROOT . '/components/com_quantummanager/helpers/quantummanager.php');
-JLoader::register('QuantummanagerLibs', JPATH_ROOT . '/components/com_quantummanager/helpers/quantumlibs.php');
+use Joomla\Component\QuantumManager\Administrator\Helper\QuantummanagerLibsHelper;
 
 extract($displayData);
 
-QuantummanagerLibs::theme();
-$is_joomla4 = QuantummanagerHelper::isJoomla4();
+QuantummanagerLibsHelper::theme();
 $modalHTML  = '';
 $modal_id = 'imageModalQuantumuploadimage_' . random_int(111111, 999999);
 
-if (!$is_joomla4)
+HTMLHelper::_('stylesheet', 'com_quantummanager/joomla.css', [
+    'version'  => filemtime(__FILE__),
+    'relative' => true
+]);
+
+try
 {
-	HTMLHelper::_('behavior.modal');
-
-	HTMLHelper::_('stylesheet', 'com_quantummanager/joomla3.css', [
-		'version'  => filemtime(__FILE__),
-		'relative' => true
-	]);
+    $modalHTML = HTMLHelper::_(
+        'bootstrap.renderModal',
+        $modal_id,
+        [
+            'url'         => 'index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage',
+            'title'       => Text::_('JLIB_FORM_CHANGE_IMAGE'),
+            'closeButton' => true,
+            'height'      => '100%',
+            'width'       => '100%',
+            'modalWidth'  => '80',
+            'bodyHeight'  => '80',
+            'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . Text::_('JCANCEL') . '</button>',
+        ]
+    );
 }
-else
+catch (Exception $e)
 {
-	HTMLHelper::_('stylesheet', 'com_quantummanager/joomla4.css', [
-		'version'  => filemtime(__FILE__),
-		'relative' => true
-	]);
-
-	try
-	{
-		$modalHTML = HTMLHelper::_(
-			'bootstrap.renderModal',
-			$modal_id,
-			[
-				'url'         => 'index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage',
-				'title'       => Text::_('JLIB_FORM_CHANGE_IMAGE'),
-				'closeButton' => true,
-				'height'      => '100%',
-				'width'       => '100%',
-				'modalWidth'  => '80',
-				'bodyHeight'  => '80',
-				'footer'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">' . Text::_('JCANCEL') . '</button>',
-			]
-		);
-	}
-	catch (Exception $e)
-	{
-	}
-
 }
-
 
 HTMLHelper::_('stylesheet', 'lib_fields/quantumuploadimage/field.css', [
 	'version'  => filemtime(__FILE__),
@@ -76,8 +59,7 @@ $quantumOptions = [
 	'option'     => 'com_quantummanager',
 	'tmpl'       => 'component',
 	'layout'     => 'modal',
-	'namespace'  => 'quantumuploadimage',
-	'is_joomla4' => $is_joomla4 ? '1' : '0'
+	'namespace'  => 'quantumuploadimage'
 ];
 
 ?>
@@ -91,14 +73,13 @@ $quantumOptions = [
     <div class="quantumuploadimage-actions">
         <input type="text" name="<?php echo $displayData['name'] ?>" id="<?php echo $displayData['id'] ?>"
                value="<?php echo $value ?>"
-               class="quantumuploadimage-input <?php if ($is_joomla4) : ?>form-control<?php endif; ?>">
+               class="quantumuploadimage-input form-control">
         <div class="quantumuploadimage-group-buttons">
 			<?php if (isset($displayData['dropAreaHidden']) && (int) $displayData['dropAreaHidden']) : ?>
                 <button class="qm-btn quantumuploadimage-upload-start"><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_UPLOADING') ?></button><?php endif; ?>
             <button class="qm-btn qm-btn-primary quantumuploadimage-change"
                     aria-hidden="true"
                     data-source-href="/administrator/index.php?<?php echo http_build_query($quantumOptions) ?>"
-                    data-is-joomla4="<?php echo $is_joomla4 ? '1' : '0' ?>"
                     data-modal-id="<?php echo $modal_id; ?>"
             ><?php echo Text::_('COM_QUANTUMMANAGER_ACTION_SELECT') ?></button>
 			<?php if ((int) $displayData['copy']) : ?>

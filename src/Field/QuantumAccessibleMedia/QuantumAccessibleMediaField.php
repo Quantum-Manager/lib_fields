@@ -1,11 +1,13 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\QuantumAccessibleMedia;
+
+defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Form\Field\AccessiblemediaField;
 
-class JFormFieldQuantumaccessiblemedia extends AccessiblemediaField
+class QuantumAccessibleMediaField extends AccessiblemediaField
 {
 
-	protected $type = 'Quantumaccessiblemedia';
+	protected $type = 'QuantumAccessibleMedia';
 
 	protected $dropAreaHidden;
 
