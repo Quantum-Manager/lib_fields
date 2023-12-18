@@ -21,7 +21,7 @@
     </updateservers>
 
     <files>
-        <folder>fields</folder>
+        <folder>src</folder>
         <folder>language</folder>
     </files>
 
