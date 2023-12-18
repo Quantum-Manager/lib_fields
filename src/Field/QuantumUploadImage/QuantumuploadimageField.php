@@ -2,6 +2,7 @@
 
 defined('JPATH_PLATFORM') or die;
 
+use Exception;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\Component\QuantumManager\Administrator\Field\QuantumuploadField;
 use Joomla\Component\QuantumManager\Administrator\Helper\QuantummanagerLibsHelper;
@@ -12,23 +13,24 @@ use Joomla\Component\QuantumManager\Administrator\Helper\QuantummanagerLibsHelpe
  *
  * @since  1.6
  */
-class QuantumUploadImageField extends QuantumuploadField
+class QuantumuploadimageField extends QuantumuploadField
 {
 
 	/**
 	 * @var string
 	 */
-	public $type = 'QuantumUploadImage';
-
+	public $type = 'quantumuploadimage';
 
 	public $render = '';
+
+	protected $copy = false;
 
 	/**
 	 * @return array
 	 */
 	protected function getLayoutData()
 	{
-		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR);
+		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
 		$parentData = parent::getLayoutData();
 
 		if (isset($this->dropAreaHidden) && (int) $this->dropAreaHidden)
