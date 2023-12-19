@@ -1,4 +1,6 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\Layouts;
+
+defined('JPATH_PLATFORM') or die;
 
 /**
  * @package     Joomla.Legacy
@@ -14,8 +16,9 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\Filesystem\Folder;
 
-class JFormFieldLayoutsPlugin extends FormField
+class LayoutspluginField extends FormField
 {
 	protected $type = 'layoutsplugin';
 
@@ -98,7 +101,7 @@ class JFormFieldLayoutsPlugin extends FormField
 
 			$groups = [];
 
-			if (is_dir($plugin_path) && ($plugin_layouts = \JFolder::files($plugin_path, '^[^_]*\.php$')))
+			if (is_dir($plugin_path) && ($plugin_layouts = Folder::files($plugin_path, '^[^_]*\.php$')))
 			{
 				$groups['_']          = [];
 				$groups['_']['id']    = $this->id . '__';
@@ -122,7 +125,7 @@ class JFormFieldLayoutsPlugin extends FormField
 
 					$template_path = Path::clean($client->path . '/templates/' . $template->element . '/html/layouts/plugins/' . $folder . '/' . $plugin);
 
-					if (is_dir($template_path) && ($files = \JFolder::files($template_path, '^[^_]*\.php$')))
+					if (is_dir($template_path) && ($files = Folder::files($template_path, '^[^_]*\.php$')))
 					{
 						foreach ($files as $i => $file)
 						{

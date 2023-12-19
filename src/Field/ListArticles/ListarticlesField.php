@@ -12,7 +12,7 @@ use Joomla\CMS\HTML\HTMLHelper;
  *
  * @since  1.6
  */
-class ListArticlesField extends ListField
+class ListarticlesField extends ListField
 {
 	/**
 	 * The form field type.

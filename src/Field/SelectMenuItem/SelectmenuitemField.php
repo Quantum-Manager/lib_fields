@@ -6,7 +6,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 
-class SelectMenuItemField extends FormField
+class SelectmenuitemField extends FormField
 {
 
 	protected $name = 'selectmenuitem';

@@ -1,17 +1,16 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\Layouts;
 
-use Joomla\CMS\Form\FormHelper;
+defined('JPATH_PLATFORM') or die;
+
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
+use JPATHRU\Libraries\Fields\Field\Layouts\Helper\LayoutPathsHelper;
+use stdClass;
 
-FormHelper::loadFieldClass('list');
-JLoader::register('LayoutPathsHelper', __DIR__ . '/helpers/LayoutPathsHelper.php');
-
-
-class JFormFieldLayouts extends JFormFieldList
+class LayoutsField extends ListField
 {
-
 
 	public function getInput()
 	{

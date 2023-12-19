@@ -25,7 +25,7 @@ use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Language\Text;
 
-class ListComponentsField extends ListField
+class ListcomponentsField extends ListField
 {
 	/**
 	 * The form field type.
@@ -34,7 +34,7 @@ class ListComponentsField extends ListField
 	 *
 	 * @since  1.1.0
 	 */
-	protected $type = 'listcomponents';
+	protected $type = 'ListComponents';
 
 
 	/**

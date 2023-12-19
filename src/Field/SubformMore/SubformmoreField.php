@@ -1,11 +1,11 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\SubformMore;
 
-use Joomla\CMS\Form\FormHelper;
+defined('JPATH_PLATFORM') or die;
+
+use Joomla\CMS\Form\Field\SubformField;
 use Joomla\CMS\HTML\HTMLHelper;
 
-FormHelper::loadFieldClass('subform');
-
-class JFormFieldSubformmore extends JFormFieldSubform
+class SubformmoreField extends SubformField
 {
 
 	protected $name = 'subformmore';

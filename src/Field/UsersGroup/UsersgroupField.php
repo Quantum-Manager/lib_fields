@@ -1,4 +1,5 @@
-<?php
+<?php namespace JPATHRU\Libraries\Fields\Field\UsersGroup;
+
 /**
  * @package     Joomla! fields library
  * @subpackage  Components list field
@@ -17,11 +18,10 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Form\FormHelper;
+use Joomla\CMS\Form\Field\ListField;
+use stdClass;
 
-FormHelper::loadFieldClass('list');
-
-class JFormFieldUsersgroup extends JFormFieldList
+class UsersgroupField extends ListField
 {
 
 	protected $type = 'usersgroup';

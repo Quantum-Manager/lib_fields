@@ -4,7 +4,7 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Form\Field\AccessiblemediaField;
 
-class QuantumAccessibleMediaField extends AccessiblemediaField
+class QuantumaccessiblemediaField extends AccessiblemediaField
 {
 
 	protected $type = 'QuantumAccessibleMedia';

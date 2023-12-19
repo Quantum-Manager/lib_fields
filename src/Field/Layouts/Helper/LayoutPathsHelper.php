@@ -1,4 +1,6 @@
-<?php defined('JPATH_PLATFORM') or die;
+<?php namespace JPATHRU\Libraries\Fields\Field\Layouts\Helper;
+
+defined('JPATH_PLATFORM') or die;
 
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;
