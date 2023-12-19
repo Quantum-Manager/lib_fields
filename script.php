@@ -3,7 +3,7 @@
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;
 
-if(class_exists('Lib_fieldsInstallerScript'))
+if (class_exists('Lib_fieldsInstallerScript'))
 {
 	return;
 }
@@ -35,7 +35,7 @@ class Lib_fieldsInstallerScript
 	protected function copyMedia($installer)
 	{
 		$dest    = JPATH_ROOT . '/media/lib_fields';
-		$path    = Path::clean(JPATH_ROOT . '/libraries/lib_fields/fields');
+		$path    = Path::clean(JPATH_ROOT . '/libraries/lib_fields/src/Field');
 		$folders = Folder::folders($path);
 
 		$copyFiles = [];
@@ -52,7 +52,7 @@ class Lib_fieldsInstallerScript
 			{
 				$copyFiles[] = [
 					'src'  => $path_current,
-					'dest' => $dest . '/' . $folder,
+					'dest' => $dest . '/' . strtolower($folder),
 					'type' => 'folder'
 				];
 			}
