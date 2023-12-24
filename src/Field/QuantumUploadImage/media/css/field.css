@@ -95,3 +95,12 @@
 .quantumuploadimage-field .quantumuploadimage-group-buttons > *:last-child {
     border-radius: 0 3px 3px 0;
 }
+
+
+@media (prefers-color-scheme: dark) {
+    .quantumuploadimage-field .quantumupload-module,
+    .quantumuploadimage-field .quantumupload-module .drop-area,
+    .quantumuploadimage-field .quantumuploadimage-preview {
+        background-color: #404040;
+    }
+}
