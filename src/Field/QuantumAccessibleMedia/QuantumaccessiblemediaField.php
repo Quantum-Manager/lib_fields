@@ -7,7 +7,7 @@ use Joomla\CMS\Form\Field\AccessiblemediaField;
 class QuantumaccessiblemediaField extends AccessiblemediaField
 {
 
-	protected $type = 'QuantumAccessibleMedia';
+	protected $type = 'quantumaccessiblemedia';
 
 	protected $dropAreaHidden;
 
@@ -72,7 +72,7 @@ class QuantumaccessiblemediaField extends AccessiblemediaField
 	>
 		<field
 			name="imagefile"
-			addfieldprefix="JPATHRU\Libraries\Fields\Field\QuantumUploadImageField"
+			addfieldprefix="JPATHRU\Libraries\Fields\Field\QuantumUploadImage"
 			type="quantumuploadimage"
 			label="JLIB_FORM_FIELD_PARAM_ACCESSIBLEMEDIA_PARAMS_IMAGEFILE_LABEL"
 			directory="$this->directory"

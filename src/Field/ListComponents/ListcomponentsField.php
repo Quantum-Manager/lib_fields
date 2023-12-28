@@ -19,11 +19,13 @@ defined('_JEXEC') or die;
 
 use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Filesystem\File;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Version;
 use Joomla\CMS\Filesystem\Folder;
 use Joomla\CMS\Filesystem\Path;
 use Joomla\CMS\Language\Text;
+use stdClass;
 
 class ListcomponentsField extends ListField
 {
@@ -62,13 +64,13 @@ class ListcomponentsField extends ListField
 		if ($this->_options === null)
 		{
 			// Get components
-			$db       = Factory::getDbo();
-			$query    = $db->getQuery(true)
+			$db             = Factory::getDbo();
+			$query          = $db->getQuery(true)
 				->select(array('e.element'))
 				->from($db->quoteName('#__extensions', 'e'))
 				->where($db->quoteName('e.type') . '=' . $db->quote('component'))
 				->where('e.enabled = 1');
-			$elements = $db->setQuery($query)->loadColumn();
+			$elements       = $db->setQuery($query)->loadColumn();
 			$rootComponents = JPATH_ROOT;
 			$client         = $this->getAttribute('client', 'site');
 
@@ -80,14 +82,15 @@ class ListcomponentsField extends ListField
 			$components = array();
 			foreach ($elements as $component)
 			{
-				$folder = $this->checkFolder($component,$rootComponents);
+				$folder = $this->checkFolder($component, $rootComponents);
 				if ($folder !== false && Folder::exists($folder))
 				{
 					foreach (Folder::folders($folder) as $view)
 					{
-						if (dirname($folder,1) === 'tmpl' && $this->checkEditOption($folder, $view) === false) {
+						if (dirname($folder, 1) === 'tmpl' && $this->checkEditOption($folder, $view) === false)
+						{
 							continue;
-						} 
+						}
 
 						if (!isset($views[$component]))
 						{
@@ -181,23 +184,24 @@ class ListcomponentsField extends ListField
 
 		return $this->_options;
 	}
-	
+
 	/**
 	 * Check if relevant folder exists with different paths for J3 and J4
-	 * 
-	 * @param string $component
-	 * @param string $rootComponents
-	 * 
+	 *
+	 * @param   string  $component
+	 * @param   string  $rootComponents
+	 *
 	 * @return string|bool
 	 */
-	private static function checkFolder(string $component, string $rootComponents = JPATH_ROOT) {
+	private static function checkFolder(string $component, string $rootComponents = JPATH_ROOT)
+	{
 		$jversion = new Version();
-		$folder = Path::clean($rootComponents . '/components/' . $component . '/views');
+		$folder   = Path::clean($rootComponents . '/components/' . $component . '/views');
 		if (Folder::exists($folder))
 		{
 			return $folder;
-		} 
-		elseif(version_compare($jversion->getShortVersion(), '4.0', '>=')) 
+		}
+		elseif (version_compare($jversion->getShortVersion(), '4.0', '>='))
 		{
 			$folder = Path::clean($rootComponents . '/components/' . $component . '/tmpl');
 			if (Folder::exists($folder))
@@ -205,22 +209,26 @@ class ListcomponentsField extends ListField
 				return $folder;
 			}
 		}
+
 		return false;
 	}
 
 	/**
 	 * Check if there is an edit option in views for J4
-	 * 
-	 * @param string $folder
-	 * @param string $view
-	 * 
+	 *
+	 * @param   string  $folder
+	 * @param   string  $view
+	 *
 	 * @return bool
 	 */
-	private static function checkEditOption(string $folder, string $view) {
+	private static function checkEditOption(string $folder, string $view)
+	{
 		$editFile = $folder . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR . 'edit.php';
-		if (File::exists($editFile)) {
+		if (File::exists($editFile))
+		{
 			return true;
 		}
+
 		return false;
 
 	}

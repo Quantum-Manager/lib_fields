@@ -2,6 +2,7 @@
 
 defined('JPATH_PLATFORM') or die;
 
+use Exception;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
