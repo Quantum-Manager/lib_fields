@@ -36,7 +36,7 @@ class ListcomponentsField extends ListField
 	 *
 	 * @since  1.1.0
 	 */
-	protected $type = 'ListComponents';
+	protected $type = 'listcomponents';
 
 
 	/**
