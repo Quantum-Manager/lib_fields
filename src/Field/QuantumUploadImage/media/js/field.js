@@ -14,7 +14,7 @@ window.QuantumuploadimageInsertFieldValue = function (value, fieldid) {
 
 window.QuantumuploadimageModalOpen = function () {
     let input = quantumuploadimageSelector.querySelector('input');
-    let url = QuantumUtils.getFullUrl('index.php?option=com_quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
+    let url = QuantumUtils.getFullUrl('index.php?option=com_quantummanager&view=quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
 
     if (input.value !== '') {
         let paths = input.value.split('/');
