@@ -36,6 +36,12 @@ class Lib_fieldsInstallerScript
 	{
 		$dest    = JPATH_ROOT . '/media/lib_fields';
 		$path    = Path::clean(JPATH_ROOT . '/libraries/lib_fields/src/Field');
+
+		if(!file_exists($path))
+		{
+			return;
+		}
+
 		$folders = Folder::folders($path);
 
 		$copyFiles = [];
