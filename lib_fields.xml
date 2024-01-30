@@ -22,6 +22,7 @@
 
     <files>
         <folder>src</folder>
+        <folder>fields</folder>
         <folder>language</folder>
     </files>
 
