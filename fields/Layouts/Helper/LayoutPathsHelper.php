@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\Layouts\Helper;
+<?php namespace JPATHRU\Libraries\Fields\Layouts\Helper;
 
 defined('JPATH_PLATFORM') or die;
 

@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\SubformMore;
+<?php namespace JPATHRU\Libraries\Fields\SubformMore;
 
 defined('JPATH_PLATFORM') or die;
 

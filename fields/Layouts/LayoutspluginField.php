@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\Layouts;
+<?php namespace JPATHRU\Libraries\Fields\Layouts;
 
 defined('JPATH_PLATFORM') or die;
 
@@ -18,9 +18,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
 
-class LayoutsmoduleField extends FormField
+class LayoutspluginField extends FormField
 {
-	protected $type = 'layoutsmodule';
+	protected $type = 'layoutsplugin';
 
 	protected function getInput()
 	{
@@ -35,17 +35,26 @@ class LayoutsmoduleField extends FormField
 
 		$client = ApplicationHelper::getClientInfo($clientId);
 
-		$module = (string) $this->element['module'];
-
-		if (empty($module) && ($this->form instanceof Form))
+		if (($this->form instanceof Form))
 		{
-			$module = $this->form->getValue('module');
+			$plugin = $this->form->getValue('type');
 		}
 
-		$module = preg_replace('#\W#', '', $module);
+		$plugin = $this->element['plugin'];
 
-		if ($module && $client)
+		if (empty($plugin) && ($this->form instanceof Form))
 		{
+			$plugin = $this->form->getValue('element');
+		}
+
+		$plugin = preg_replace('#\W#', '', $plugin);
+
+		$folder = $this->form->getValue('folder');
+
+		if ($plugin && $client)
+		{
+
+			$pluginFullName = 'plg_' . $folder . '_' . $plugin;
 
 			$template = (string) $this->element['template'];
 			$template = preg_replace('#\W#', '', $template);
@@ -58,8 +67,8 @@ class LayoutsmoduleField extends FormField
 			}
 
 			$lang = Factory::getLanguage();
-			$lang->load($module . '.sys', $client->path, null, false, true)
-			|| $lang->load($module . '.sys', $client->path . '/modules/' . $module, null, false, true);
+			$lang->load($plugin . '.sys', $client->path, null, false, true)
+			|| $lang->load($plugin . '.sys', $client->path . '/plugins/' . $folder . '/' . $plugin, null, false, true);
 
 			$db    = Factory::getDbo();
 			$query = $db->getQuery(true);
@@ -86,23 +95,23 @@ class LayoutsmoduleField extends FormField
 			$db->setQuery($query);
 			$templates = $db->loadObjectList('element');
 
-			$module_path = Path::clean($client->path . '/modules/' . $module . '/layouts');
+			$plugin_path = realpath(Path::clean($client->path . '/plugins/' . $folder . '/' . $plugin . '/layouts'));
 
-			$module_layouts = [];
+			$plugin_layouts = [];
 
 			$groups = [];
 
-			if (is_dir($module_path) && ($module_layouts = Folder::files($module_path, '^[^_]*\.php$')))
+			if (is_dir($plugin_path) && ($plugin_layouts = Folder::files($plugin_path, '^[^_]*\.php$')))
 			{
 				$groups['_']          = [];
 				$groups['_']['id']    = $this->id . '__';
-				$groups['_']['text']  = Text::sprintf('JOPTION_FROM_MODULE');
+				$groups['_']['text']  = Text::sprintf('JOPTION_FROM_PLUGIN');
 				$groups['_']['items'] = [];
 
-				foreach ($module_layouts as $file)
+				foreach ($plugin_layouts as $file)
 				{
 					$value                  = basename($file, '.php');
-					$text                   = $lang->hasKey($key = strtoupper($module . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
+					$text                   = $lang->hasKey($key = strtoupper($plugin . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
 					$groups['_']['items'][] = HTMLHelper::_('select.option', '_:' . $value, $text);
 				}
 			}
@@ -111,15 +120,16 @@ class LayoutsmoduleField extends FormField
 			{
 				foreach ($templates as $template)
 				{
-					$lang->load('tpl_' . $template->element . '.sys', $client->path, null, false, true) || $lang->load('tpl_' . $template->element . '.sys', $client->path . '/templates/' . $template->element, null, false, true);
+					$lang->load('tpl_' . $template->element . '.sys', $client->path, null, false, true)
+					|| $lang->load('tpl_' . $template->element . '.sys', $client->path . '/templates/' . $template->element, null, false, true);
 
-					$template_path = Path::clean($client->path . '/templates/' . $template->element . '/html/layouts/' . $module);
+					$template_path = Path::clean($client->path . '/templates/' . $template->element . '/html/layouts/plugins/' . $folder . '/' . $plugin);
 
 					if (is_dir($template_path) && ($files = Folder::files($template_path, '^[^_]*\.php$')))
 					{
 						foreach ($files as $i => $file)
 						{
-							if (in_array($file, $module_layouts))
+							if (in_array($file, $plugin_layouts))
 							{
 								unset($files[$i]);
 							}
@@ -135,7 +145,7 @@ class LayoutsmoduleField extends FormField
 							foreach ($files as $file)
 							{
 								$value                                 = basename($file, '.php');
-								$text                                  = $lang->hasKey($key = strtoupper('TPL_' . $template->element . '_' . $module . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
+								$text                                  = $lang->hasKey($key = strtoupper('TPL_' . $template->element . '_' . $plugin . '_LAYOUTS_LAYOUT_' . $value)) ? Text::_($key) : $value;
 								$groups[$template->element]['items'][] = HTMLHelper::_('select.option', $template->element . ':' . $value, $text);
 							}
 						}

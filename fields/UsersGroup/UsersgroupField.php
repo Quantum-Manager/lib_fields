@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\UsersGroup;
+<?php namespace JPATHRU\Libraries\Fields\UsersGroup;
 
 /**
  * @package     Joomla! fields library

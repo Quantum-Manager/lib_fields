@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\Layouts;
+<?php namespace JPATHRU\Libraries\Fields\Layouts;
 
 defined('JPATH_PLATFORM') or die;
 
@@ -6,7 +6,7 @@ use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Filesystem\Folder;
-use JPATHRU\Libraries\Fields\Field\Layouts\Helper\LayoutPathsHelper;
+use JPATHRU\Libraries\Fields\Layouts\Helper\LayoutPathsHelper;
 use stdClass;
 
 class LayoutsField extends ListField

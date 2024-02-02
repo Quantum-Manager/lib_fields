@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\QuantumUploadImage;
+<?php namespace JPATHRU\Libraries\Fields\QuantumUploadImage;
 
 defined('JPATH_PLATFORM') or die;
 

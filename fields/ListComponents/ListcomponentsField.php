@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\ListComponents;
+<?php namespace JPATHRU\Libraries\Fields\ListComponents;
 
 /**
  * @package     Joomla! fields library

@@ -1,10 +1,9 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\ListArticles;
+<?php namespace JPATHRU\Libraries\Fields\ListArticles;
 
 defined('JPATH_PLATFORM') or die;
 
 use Exception;
 use Joomla\CMS\Form\Field\ListField;
-use Joomla\CMS\Form\FormHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 
 /**
@@ -33,7 +32,7 @@ class ListarticlesField extends ListField
 	{
 		try
 		{
-			HTMLHelper::addIncludePath(JPATH_ROOT . '/libraries/lib_fields/fields/listarticles/helpers');
+			HTMLHelper::addIncludePath(JPATH_ROOT . '/libraries/lib_fields/fields/ListArticles/helpers');
 
 			$filters['filter.q']         = $this->getAttribute('q', '');
 			$filters['filter.limit']     = $this->getAttribute('limit', '');

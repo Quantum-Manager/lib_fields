@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\Modal;
+<?php namespace JPATHRU\Libraries\Fields\Modal;
 
 defined('JPATH_PLATFORM') or die;
 

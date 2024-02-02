@@ -10,7 +10,7 @@
     <license>GPL v3</license>
     <version>2.1.0</version>
     <description>Library fields</description>
-    <namespace path="src">JPATHRU\Libraries\Fields</namespace>
+    <namespace path="fields">JPATHRU\Libraries\Fields</namespace>
 
     <scriptfile>script.php</scriptfile>
 
@@ -21,7 +21,6 @@
     </updateservers>
 
     <files>
-        <folder>src</folder>
         <folder>fields</folder>
         <folder>language</folder>
     </files>

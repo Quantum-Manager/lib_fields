@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\QuantumAccessibleMedia;
+<?php namespace JPATHRU\Libraries\Fields\QuantumAccessibleMedia;
 
 defined('JPATH_PLATFORM') or die;
 

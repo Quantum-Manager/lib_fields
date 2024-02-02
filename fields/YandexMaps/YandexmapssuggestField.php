@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\YandexMaps;
+<?php namespace JPATHRU\Libraries\Fields\YandexMaps;
 
 defined('JPATH_PLATFORM') or die;
 

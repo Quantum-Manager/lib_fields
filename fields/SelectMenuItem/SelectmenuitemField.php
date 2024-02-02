@@ -1,4 +1,4 @@
-<?php namespace JPATHRU\Libraries\Fields\Field\SelectMenuItem;
+<?php namespace JPATHRU\Libraries\Fields\SelectMenuItem;
 
 defined('JPATH_PLATFORM') or die;
 
