@@ -17,7 +17,8 @@ window.QuantumuploadimageModalOpen = function () {
     let url = QuantumUtils.getFullUrl('index.php?option=com_quantummanager&view=quantummanager&tmpl=component&layout=modal&namespace=quantumuploadimage') + '&fieldid=' + input.getAttribute('id');
 
     if (input.value !== '') {
-        let paths = input.value.split('/');
+        let value = input.value.replace(/\#.+$/, '');
+        let paths = value.split('/');
         paths.pop();
         url += '&folder=' + paths.join('/').replace('images/', '');
     }
