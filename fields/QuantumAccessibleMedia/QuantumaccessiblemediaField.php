@@ -72,7 +72,7 @@ class QuantumaccessiblemediaField extends AccessiblemediaField
 	>
 		<field
 			name="imagefile"
-			addfieldprefix="JPATHRU\Libraries\Fields\Field\QuantumUploadImage"
+			addfieldprefix="JPATHRU\Libraries\Fields\QuantumUploadImage"
 			type="quantumuploadimage"
 			label="JLIB_FORM_FIELD_PARAM_ACCESSIBLEMEDIA_PARAMS_IMAGEFILE_LABEL"
 			directory="$this->directory"
