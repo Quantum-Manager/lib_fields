@@ -66,41 +66,37 @@ class ListcomponentsField extends ListField
 			// Get components
 			$db             = Factory::getDbo();
 			$query          = $db->getQuery(true)
-				->select(array('e.element'))
+				->select(['e.element'])
 				->from($db->quoteName('#__extensions', 'e'))
 				->where($db->quoteName('e.type') . '=' . $db->quote('component'))
 				->where('e.enabled = 1');
 			$elements       = $db->setQuery($query)->loadColumn();
-			$rootComponents = JPATH_ROOT;
-			$client         = $this->getAttribute('client', 'site');
+			$rootComponents = [JPATH_ROOT, JPATH_ADMINISTRATOR];
 
-			if ($client === 'administrator')
-			{
-				$rootComponents = JPATH_ADMINISTRATOR;
-			}
-
-			$components = array();
+			$components = [];
 			foreach ($elements as $component)
 			{
-				$folder = $this->checkFolder($component, $rootComponents);
-				if ($folder !== false && Folder::exists($folder))
+				foreach ($rootComponents as $rootComponent)
 				{
-					foreach (Folder::folders($folder) as $view)
+					$folder = $this->checkFolder($component, $rootComponent);
+					if ($folder !== false && Folder::exists($folder))
 					{
-						if (dirname($folder, 1) === 'tmpl' && $this->checkEditOption($folder, $view) === false)
+						foreach (Folder::folders($folder) as $view)
 						{
-							continue;
-						}
+							if (dirname($folder, 1) === 'tmpl' && $this->checkEditOption($folder, $view) === false)
+							{
+								continue;
+							}
 
-						if (!isset($views[$component]))
-						{
-							$views[$component] = array();
+							if (!isset($views[$component]))
+							{
+								$views[$component] = [];
+							}
+							$components[$component][$view] = [];
 						}
-						$components[$component][$view] = array();
 					}
 				}
 			}
-
 
 			// Convert options
 			$options = parent::getOptions();
@@ -120,11 +116,11 @@ class ListcomponentsField extends ListField
 
 						if (!isset($components[$component]))
 						{
-							$components[$component] = array();
+							$components[$component] = [];
 						}
 						if (!isset($components[$component][$view]))
 						{
-							$components[$component][$view] = array();
+							$components[$component][$view] = [];
 						}
 						if ($layout && !in_array($layout, $components[$component][$view]))
 						{
