@@ -8,17 +8,11 @@
     <authorEmail>cymbal@delo-design.ru</authorEmail>
     <copyright>Copyright (C) 2020 "JPath". All rights reserved.</copyright>
     <license>GPL v3</license>
-    <version>2.1.1</version>
+    <version>2.1.2</version>
     <description>Library fields</description>
     <namespace path="fields">JPATHRU\Libraries\Fields</namespace>
 
     <scriptfile>script.php</scriptfile>
-
-    <updateservers>
-        <server type="extension" priority="1" name="Lib fields">
-            https://hika.su/update/free/lib_fields.xml
-        </server>
-    </updateservers>
 
     <files>
         <folder>fields</folder>
