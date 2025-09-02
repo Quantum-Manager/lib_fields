@@ -28,7 +28,7 @@ class QuantumuploadimageField extends QuantumuploadField
 	/**
 	 * @return array
 	 */
-	protected function getLayoutData()
+	protected function getLayoutData(): array
 	{
 		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');
 		$parentData = parent::getLayoutData();
@@ -55,7 +55,7 @@ class QuantumuploadimageField extends QuantumuploadField
 		);
 	}
 
-	public function getInput()
+	public function getInput(): string
 	{
 		try
 		{
