@@ -1,6 +1,8 @@
-<?php namespace JPATHRU\Libraries\Fields\Layouts\Helper;
+<?php
 
-defined('JPATH_PLATFORM') or die;
+namespace JPATHRU\Libraries\Fields\Layouts\Helper;
+
+defined('_JEXEC') or die;
 
 use Joomla\Filesystem\Folder;
 use Joomla\Filesystem\Path;
@@ -10,9 +12,7 @@ class LayoutPathsHelper
 
 	protected $paths = [];
 
-
 	protected $cache_paths = [];
-
 
 	public function __construct($target = '', $other_paths = '', $template = '')
 	{
@@ -109,7 +109,6 @@ class LayoutPathsHelper
 
 	}
 
-
 	public function get($type = '')
 	{
 
@@ -128,12 +127,10 @@ class LayoutPathsHelper
 		return $this->paths;
 	}
 
-
 	protected function set($paths = [])
 	{
 		$this->paths = $paths;
 	}
-
 
 	protected function add($path)
 	{
@@ -148,6 +145,5 @@ class LayoutPathsHelper
 
 		return true;
 	}
-
 
 }

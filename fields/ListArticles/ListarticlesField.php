@@ -20,7 +20,7 @@ class ListarticlesField extends ListField
 	 * @var    string
 	 * @since  1.6
 	 */
-	public $type = 'ListArticles';
+	public $type = 'Listarticles';
 
 	/**
 	 *

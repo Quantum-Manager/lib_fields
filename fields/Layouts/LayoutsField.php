@@ -1,6 +1,8 @@
-<?php namespace JPATHRU\Libraries\Fields\Layouts;
+<?php
 
-defined('JPATH_PLATFORM') or die;
+namespace JPATHRU\Libraries\Fields\Layouts;
+
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -11,6 +13,8 @@ use stdClass;
 
 class LayoutsField extends ListField
 {
+
+	public $type = 'Layouts';
 
 	public function getInput()
 	{

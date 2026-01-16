@@ -1,15 +1,6 @@
 <?php
-/*
- * @package     RadicalMart Front Package
- * @subpackage  plg_radicalmart_front
- * @version     __DEPLOY_VERSION__
- * @author      RadicalMart Team - radicalmart.ru
- * @copyright   Copyright (c) 2023 RadicalMart. All rights reserved.
- * @license     GNU/GPL license: https://www.gnu.org/copyleft/gpl.html
- * @link        https://radicalmart.ru/
- */
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\AdministratorApplication;
 use Joomla\CMS\Factory;
@@ -25,46 +16,17 @@ return new class () implements ServiceProviderInterface {
 	public function register(Container $container)
 	{
 		$container->set(InstallerScriptInterface::class, new class ($container->get(AdministratorApplication::class)) implements InstallerScriptInterface {
-			/**
-			 * The application object
-			 *
-			 * @var  AdministratorApplication
-			 *
-			 * @since  __DEPLOY_VERSION__
-			 */
+
 			protected AdministratorApplication $app;
 
-			/**
-			 * The Database object.
-			 *
-			 * @var   DatabaseDriver
-			 *
-			 * @since  __DEPLOY_VERSION__
-			 */
 			protected DatabaseDriver $db;
 
-			/**
-			 * Constructor.
-			 *
-			 * @param   AdministratorApplication  $app  The application object.
-			 *
-			 * @since __DEPLOY_VERSION__
-			 */
 			public function __construct(AdministratorApplication $app)
 			{
 				$this->app = $app;
 				$this->db  = Factory::getContainer()->get('DatabaseDriver');
 			}
 
-			/**
-			 * Function called after the extension is installed.
-			 *
-			 * @param   InstallerAdapter  $adapter  The adapter calling this method
-			 *
-			 * @return  boolean  True on success
-			 *
-			 * @since   __DEPLOY_VERSION__
-			 */
 			public function install(InstallerAdapter $adapter): bool
 			{
 				$this->copyMedia();
@@ -72,15 +34,6 @@ return new class () implements ServiceProviderInterface {
 				return true;
 			}
 
-			/**
-			 * Function called after the extension is updated.
-			 *
-			 * @param   InstallerAdapter  $adapter  The adapter calling this method
-			 *
-			 * @return  boolean  True on success
-			 *
-			 * @since   __DEPLOY_VERSION__
-			 */
 			public function update(InstallerAdapter $adapter): bool
 			{
 				$this->copyMedia();
@@ -88,15 +41,6 @@ return new class () implements ServiceProviderInterface {
 				return true;
 			}
 
-			/**
-			 * Function called after the extension is uninstalled.
-			 *
-			 * @param   InstallerAdapter  $adapter  The adapter calling this method
-			 *
-			 * @return  boolean  True on success
-			 *
-			 * @since   __DEPLOY_VERSION__
-			 */
 			public function uninstall(InstallerAdapter $adapter): bool
 			{
 				$this->deleteMedia();
@@ -104,31 +48,11 @@ return new class () implements ServiceProviderInterface {
 				return true;
 			}
 
-			/**
-			 * Function called before extension installation/update/removal procedure commences.
-			 *
-			 * @param   string            $type     The type of change (install or discover_install, update, uninstall)
-			 * @param   InstallerAdapter  $adapter  The adapter calling this method
-			 *
-			 * @return  boolean  True on success
-			 *
-			 * @since   __DEPLOY_VERSION__
-			 */
 			public function preflight(string $type, InstallerAdapter $adapter): bool
 			{
 				return true;
 			}
 
-			/**
-			 * Function called after extension installation/update/removal procedure commences.
-			 *
-			 * @param   string            $type     The type of change (install or discover_install, update, uninstall)
-			 * @param   InstallerAdapter  $adapter  The adapter calling this method
-			 *
-			 * @return  boolean  True on success
-			 *
-			 * @since   __DEPLOY_VERSION__
-			 */
 			public function postflight(string $type, InstallerAdapter $adapter): bool
 			{
 				return true;
@@ -175,7 +99,6 @@ return new class () implements ServiceProviderInterface {
 				}
 
 			}
-
 
 			protected function deleteMedia()
 			{

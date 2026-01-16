@@ -2,6 +2,7 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Utilities\ArrayHelper;
 
 /**
@@ -35,20 +36,22 @@ abstract class JHtmlArticles
 		$config = array_merge($config, [
 			'filter.published' => [0, 1]
 		]);
-		$hash = md5('lib_fields' . '.' . serialize($config));
+		$hash   = md5('lib_fields' . '.' . serialize($config));
 
 		if (!isset(static::$items[$hash]))
 		{
 			$config = (array) $config;
-			$db     = Factory::getDbo();
-			$user   = Factory::getUser();
+			/** @var DatabaseDriver $db */
+			$db     = Factory::getContainer()->get(DatabaseDriver::class);
+			$user   = Factory::getApplication()->getIdentity();
 			$groups = implode(',', $user->getAuthorisedViewLevels());
 
 			$query = $db->getQuery(true)
 				->select("con.id, REPLACE(con.title, '\"', '') as title, con.language")
 				->from('#__content AS con');
 
-			if(isset($config['filter.category'])) {
+			if (isset($config['filter.category']))
+			{
 				$category = (int) $config['filter.category'];
 				$query->innerJoin("(SELECT node.id FROM #__categories AS node, #__categories AS parent WHERE node.lft BETWEEN parent.lft AND parent.rgt AND (parent.parent_id = " . $category . " OR parent.id = " . $category . ") ORDER BY node.lft) AS cat ON (con.catid = cat.id)");
 			}
@@ -88,7 +91,7 @@ abstract class JHtmlArticles
 			// Filter on the language
 			if (isset($config['filter.q']))
 			{
-				$search = $db->Quote( '%' . $db->escape( $config['filter.q'], true ) . '%' );
+				$search = $db->Quote('%' . $db->escape($config['filter.q'], true) . '%');
 
 				$query->where("title LIKE " . $search);
 			}
@@ -96,13 +99,13 @@ abstract class JHtmlArticles
 			// Filter on the language
 			if (isset($config['filter.limit']))
 			{
-				$query->setLimit((int)$config['filter.limit']);
+				$query->setLimit((int) $config['filter.limit']);
 			}
 
 			// Filter on the language
 			if (isset($config['filter.ids']))
 			{
-				$ids = $db->escape( implode(',', $config['filter.ids']), true );
+				$ids = $db->escape(implode(',', $config['filter.ids']), true);
 				$query->where("con.id in (" . $ids . ')');
 			}
 
