@@ -1,11 +1,15 @@
-<?php namespace JPATHRU\Libraries\Fields\Modal;
+<?php
 
-defined('JPATH_PLATFORM') or die;
+namespace JPATHRU\Libraries\Fields\Modal;
+
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\WebAsset\WebAssetManager;
+use Joomla\Database\DatabaseDriver;
 use RuntimeException;
 
 class ModuleidField extends FormField
@@ -15,14 +19,15 @@ class ModuleidField extends FormField
 
 	protected static $declareScriptFlag = true;
 
-	protected $name = 'moduleid';
+	protected $name = 'Moduleid';
 
 	public function getInput()
 	{
 
 		HTMLHelper::_('behavior.modal', 'a.modal');
 
-		$db = Factory::getDBO();
+		/** @var DatabaseDriver $db */
+		$db = Factory::getContainer()->get(DatabaseDriver::class);
 		$db->setQuery('SELECT id, title FROM #__modules');
 
 		try
@@ -37,7 +42,6 @@ class ModuleidField extends FormField
 
 		if (self::$declareScriptFlag)
 		{
-			// Build the script.
 			$script   = array();
 			$script[] = '	function jInsertEditorText(text, elementId) {';
 			$script[] = '       var moduleData = ' . json_encode($data) . ';';
@@ -47,8 +51,10 @@ class ModuleidField extends FormField
 			$script[] = '		SqueezeBox.close();';
 			$script[] = '	}';
 
-			// Add the script to the document head.
-			Factory::getDocument()->addScriptDeclaration(implode("\n", $script));
+			/** @var WebAssetManager $wa */
+			$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
+			$wa->addInlineScript(implode("\n", $script));
+
 			self::$declareScriptFlag = false;
 		}
 
@@ -68,8 +74,8 @@ class ModuleidField extends FormField
 		$html[] = '<span class="input-append">';
 		$html[] =
 			'<input type="text" class="input-medium" id="' . $this->id . '_name" value="' . $title . '" disabled="disabled" size="35" />
-        <a class="modal btn" title="' . JText::_('COM_HZCATALOG_CHANGE_BID') . '"  href="' . $link . '&amp;' . JSession::getFormToken() . '=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}">
-        <i class="icon-file"></i> ' . JText::_(self::BTN_VALUE) . '
+        <a class="modal btn" title="' . Text::_('COM_HZCATALOG_CHANGE_BID') . '"  href="' . $link . '&amp;' . Factory::getApplication()->getSession()->getFormToken() . '=1" rel="{handler: \'iframe\', size: {x: 800, y: 450}}">
+        <i class="icon-file"></i> ' . Text::_(self::BTN_VALUE) . '
         </a>';
 		$html[] = '</span>';
 		$html[] = '<input type="hidden" id="' . $this->id . '_id"' . $class . ' name="' . $this->name . '" value="' . $value . '" />';

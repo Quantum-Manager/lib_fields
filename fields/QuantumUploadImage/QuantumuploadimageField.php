@@ -1,33 +1,23 @@
-<?php namespace JPATHRU\Libraries\Fields\QuantumUploadImage;
+<?php
 
-defined('JPATH_PLATFORM') or die;
+namespace JPATHRU\Libraries\Fields\QuantumUploadImage;
+
+defined('_JEXEC') or die;
 
 use Exception;
 use Joomla\CMS\Layout\FileLayout;
 use Joomla\Component\QuantumManager\Administrator\Field\QuantumuploadField;
 use Joomla\Component\QuantumManager\Administrator\Helper\QuantummanagerLibsHelper;
 
-/**
- * Form Field class for the Joomla Platform.
- * Supports an HTML select list of categories
- *
- * @since  1.6
- */
 class QuantumuploadimageField extends QuantumuploadField
 {
 
-	/**
-	 * @var string
-	 */
-	public $type = 'quantumuploadimage';
+	public $type = 'Quantumuploadimage';
 
 	public $render = '';
 
 	protected $copy = false;
 
-	/**
-	 * @return array
-	 */
 	protected function getLayoutData(): array
 	{
 		$layout     = new FileLayout('pickimage', __DIR__ . DIRECTORY_SEPARATOR . 'layouts');

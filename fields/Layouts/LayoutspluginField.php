@@ -1,6 +1,8 @@
-<?php namespace JPATHRU\Libraries\Fields\Layouts;
+<?php
 
-defined('JPATH_PLATFORM') or die;
+namespace JPATHRU\Libraries\Fields\Layouts;
+
+defined('_JEXEC') or die;
 
 /**
  * @package     Joomla.Legacy
@@ -11,16 +13,17 @@ defined('JPATH_PLATFORM') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\Path;
+use Joomla\Filesystem\Path;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseDriver;
 use Joomla\Filesystem\Folder;
 
 class LayoutspluginField extends FormField
 {
-	protected $type = 'layoutsplugin';
+	protected $type = 'Layoutsplugin';
 
 	protected function getInput()
 	{
@@ -53,9 +56,6 @@ class LayoutspluginField extends FormField
 
 		if ($plugin && $client)
 		{
-
-			$pluginFullName = 'plg_' . $folder . '_' . $plugin;
-
 			$template = (string) $this->element['template'];
 			$template = preg_replace('#\W#', '', $template);
 
@@ -66,11 +66,12 @@ class LayoutspluginField extends FormField
 				$template_style_id = preg_replace('#\W#', '', $template_style_id);
 			}
 
-			$lang = Factory::getLanguage();
+			$lang = Factory::getApplication()->getLanguage();
 			$lang->load($plugin . '.sys', $client->path, null, false, true)
 			|| $lang->load($plugin . '.sys', $client->path . '/plugins/' . $folder . '/' . $plugin, null, false, true);
 
-			$db    = Factory::getDbo();
+			/** @var DatabaseDriver $db */
+			$db    = Factory::getContainer()->get(DatabaseDriver::class);
 			$query = $db->getQuery(true);
 
 			$query

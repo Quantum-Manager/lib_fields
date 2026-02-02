@@ -1,4 +1,6 @@
-<?php namespace JPATHRU\Libraries\Fields\ListComponents;
+<?php
+
+namespace JPATHRU\Libraries\Fields\ListComponents;
 
 /**
  * @package     Joomla! fields library
@@ -17,54 +19,30 @@
 
 defined('_JEXEC') or die;
 
-use Exception;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Filesystem\File;
+use Joomla\Filesystem\File;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\Version;
-use Joomla\CMS\Filesystem\Folder;
-use Joomla\CMS\Filesystem\Path;
+use Joomla\Filesystem\Folder;
+use Joomla\Filesystem\Path;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseDriver;
 use stdClass;
 
 class ListcomponentsField extends ListField
 {
-	/**
-	 * The form field type.
-	 *
-	 * @var  string
-	 *
-	 * @since  1.1.0
-	 */
-	protected $type = 'listcomponents';
 
+	protected $type = 'Listcomponents';
 
-	/**
-	 * Field options array.
-	 *
-	 * @var  array
-	 *
-	 * @since  1.1.0
-	 */
 	protected $_options = null;
 
-
-	/**
-	 * Method to get the field options.
-	 *
-	 * @return  array  The field option objects.
-	 *
-	 * @throws  Exception
-	 *
-	 * @since  1.1.0
-	 */
 	protected function getOptions()
 	{
 
 		if ($this->_options === null)
 		{
-			// Get components
-			$db             = Factory::getDbo();
+			/** @var DatabaseDriver $db */
+			$db             = Factory::getContainer()->get(DatabaseDriver::class);
 			$query          = $db->getQuery(true)
 				->select(['e.element'])
 				->from($db->quoteName('#__extensions', 'e'))
@@ -98,7 +76,6 @@ class ListcomponentsField extends ListField
 				}
 			}
 
-			// Convert options
 			$options = parent::getOptions();
 
 			foreach ($options as $key => $option)
@@ -133,9 +110,8 @@ class ListcomponentsField extends ListField
 
 			}
 
-			// Prepare options
 			$pluginConstant = 'LIB_FIELDS_FIELD_LIST_COMPONENTS';
-			$language       = Factory::getLanguage();
+			$language       = Factory::getApplication()->getLanguage();
 			$language_tag   = $language->getTag();
 			$language->load('lib_fields', JPATH_SITE, $language_tag, true);
 			foreach ($components as $component => $views)
@@ -145,7 +121,6 @@ class ListcomponentsField extends ListField
 				$componentText     = ($language->hasKey($componentConstant)) ? Text::_($componentConstant) :
 					ucfirst(str_replace('com_', '', $component));
 
-				// Add views
 				foreach ($views as $view => $layouts)
 				{
 					$viewValue    = $componentValue . '.' . $view;
@@ -158,7 +133,6 @@ class ListcomponentsField extends ListField
 					$option->text  = $viewText;
 					$options[]     = $option;
 
-					// Add layouts
 					foreach ($layouts as $layout)
 					{
 						$layoutValue    = $viewValue . ':' . $layout;
@@ -181,14 +155,6 @@ class ListcomponentsField extends ListField
 		return $this->_options;
 	}
 
-	/**
-	 * Check if relevant folder exists with different paths for J3 and J4
-	 *
-	 * @param   string  $component
-	 * @param   string  $rootComponents
-	 *
-	 * @return string|bool
-	 */
 	private static function checkFolder(string $component, string $rootComponents = JPATH_ROOT)
 	{
 		$jversion = new Version();
@@ -209,14 +175,6 @@ class ListcomponentsField extends ListField
 		return false;
 	}
 
-	/**
-	 * Check if there is an edit option in views for J4
-	 *
-	 * @param   string  $folder
-	 * @param   string  $view
-	 *
-	 * @return bool
-	 */
 	private static function checkEditOption(string $folder, string $view)
 	{
 		$editFile = $folder . DIRECTORY_SEPARATOR . $view . DIRECTORY_SEPARATOR . 'edit.php';

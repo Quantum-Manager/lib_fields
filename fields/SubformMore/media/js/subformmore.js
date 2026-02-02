@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded' ,function () {
         }
     }
 
-
     initAccordion(document);
 
     if (window.jQuery !== undefined) {

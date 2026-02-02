@@ -1,4 +1,6 @@
-<?php namespace JPATHRU\Libraries\Fields\UsersGroup;
+<?php
+
+namespace JPATHRU\Libraries\Fields\UsersGroup;
 
 /**
  * @package     Joomla! fields library
@@ -19,24 +21,21 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
+use Joomla\Database\DatabaseDriver;
 use stdClass;
 
 class UsersgroupField extends ListField
 {
 
-	protected $type = 'usersgroup';
-
+	protected $type = 'Usersgroup';
 
 	protected $_options = null;
 
-
 	protected function getOptions()
 	{
-
 		if ($this->_options === null)
 		{
-			// Get components
-			$db     = Factory::getDbo();
+			$db     = Factory::getContainer()->get(DatabaseDriver::class);
 			$query  = $db->getQuery(true)
 				->select(['id', 'title'])
 				->from($db->quoteName('#__usergroups'));

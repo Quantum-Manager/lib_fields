@@ -1,44 +1,26 @@
-<?php namespace JPATHRU\Libraries\Fields\QuantumAccessibleMedia;
+<?php
 
-defined('JPATH_PLATFORM') or die;
+namespace JPATHRU\Libraries\Fields\QuantumAccessibleMedia;
+
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Form\Field\AccessiblemediaField;
 
 class QuantumaccessiblemediaField extends AccessiblemediaField
 {
 
-	protected $type = 'quantumaccessiblemedia';
+	protected $type = 'Quantumaccessiblemedia';
 
 	protected $dropAreaHidden;
 
 	public function setup(\SimpleXMLElement $element, $value, $group = null)
 	{
-		/**
-		 * When you have subforms which are not repeatable (i.e. a subform custom field with the
-		 * repeat attribute set to 0) you get an array here since the data comes from decoding the
-		 * JSON into an associative array, including the media subfield's data.
-		 *
-		 * However, this method expects an object or a string, not an array. Typecasting the array
-		 * to an object solves the data format discrepancy.
-		 */
 		$value = is_array($value) ? (object) $value : $value;
 
-		/**
-		 * If the value is not a string, it is
-		 * most likely within a custom field of type subform
-		 * and the value is a stdClass with properties
-		 * imagefile and alt_text. So it is fine.
-		 */
 		if (\is_string($value)) {
 			json_decode($value);
 
-			// Check if value is a valid JSON string.
 			if ($value !== '' && json_last_error() !== JSON_ERROR_NONE) {
-				/**
-				 * If the value is not empty and is not a valid JSON string,
-				 * it is most likely a custom field created in Joomla 3 and
-				 * the value is a string that contains the file name.
-				 */
 				if (is_file(JPATH_ROOT . '/' . $value)) {
 					$value = '{"imagefile":"' . $value . '","alt_text":""}';
 				} else {

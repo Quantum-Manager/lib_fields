@@ -1,4 +1,6 @@
-<?php defined('_JEXEC') or die;
+<?php
+
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 
@@ -15,7 +17,6 @@ $count = count($form->getFieldset('default'));
 
 $table_head = '';
 
-
 foreach ($form->getFieldset('default') as $field) {
     $table_head .= '<th>' . strip_tags($field->label);
 
@@ -26,7 +27,6 @@ foreach ($form->getFieldset('default') as $field) {
 
     $table_head .= '</th>';
 }
-
 
 ?>
 
